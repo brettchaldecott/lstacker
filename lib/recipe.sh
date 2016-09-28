@@ -29,7 +29,7 @@ function apply_recipe_file {
 	local lxd_host=$2
 	local lxd_container=$3
 	local ignore_error=${IGNORE_RESULTS}
-	local declare -A lines
+	local declare -a lines
 
 	while read line; do    
 		if [[ -z "${line// }" ]] ; then
