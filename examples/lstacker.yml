@@ -1,0 +1,91 @@
+lstack:
+  proxy:
+    state: yes
+    http_url: http://172.0.0.84:3128/
+    https_url: http://172.0.0.84:3128/
+  ssh:
+    public_keys: public_keys
+  networks:
+    names:
+      - management
+      - dev
+      - qa
+      - test
+      - prod
+    management:
+      network: 192.170
+      domain: roids.example.com
+    dev:
+      network: 192.180
+      domain: dev.example.com
+    qa:
+      network: 192.190
+      domain: qa.example.com
+    test:
+      network: 192.200
+      domain: test.example.com
+    prod:
+      network: 192.210
+      domain: prod.example.com
+  servers:
+    names:
+      - lxd1
+      - lxd2
+      - lxd3
+      - lxd4
+    lxd1:
+      type: lxd
+      name: local
+      ip: 172.0.0.85
+      ip_segment: 0
+    lxd2:
+      type: lxd
+      name: lxd2
+      ip: 172.0.0.86
+      ip_segment: 50
+    lxd3:
+      type: lxd
+      name: lxd3
+      ip: 172.0.0.87
+      ip_segment: 100
+    lxd4:
+      type: lxd
+      name: lxd4
+      ip: 172.0.0.84
+      ip_segment: 150
+  lxd1:
+    hosts:
+      - jump-box
+    jump_box:
+      host: jump-box
+      networks:
+        - management
+        - dev
+        - qa
+        - test
+        - prod
+      ip_suffix: 10
+      linux_distro: ubuntu
+      distro_version: 16.04
+      lxd_profiles:
+        - docker
+        - default
+      recipies:
+        - check_mk
+  lxd3:
+  lxd2:
+  lxd4:
+    oracle_dev:
+      host: oracle-dev
+      networks:
+        - management
+        - dev
+      ip_suffix: 30
+      linux_distro: centos
+      distro_version: 7
+      lxd_profiles:
+        - default
+      recipies:
+        - oracle
+        - check_mk
+
