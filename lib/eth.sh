@@ -85,8 +85,11 @@ function debian_eth_up {
 	local lxd_host=$1
 	local lxd_container=$2
 	local device=$3
+	local ignore_result=${IGNORE_RESULTS}
+	IGNORE_RESULTS=0
 	lxd_execute_command ${lxd_host} ${lxd_container} "ifdown ${device}"
 	lxd_execute_command ${lxd_host} ${lxd_container} "ifup ${device}"
+	IGNORE_RESULTS=${ignore_result}
 
 }
 
