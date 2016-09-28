@@ -29,21 +29,25 @@ function apply_recipe_file {
 	local lxd_host=$2
 	local lxd_container=$3
 	local ignore_error=${IGNORE_RESULTS}
-	IGNORE_RESULTS=0
+	local declare -A lines
 
 	while read line; do    
-		echo "Line is ${line}"
 		if [[ -z "${line// }" ]] ; then
 			continue
 		fi
 		if [[ ${line:0:1} == '#' ]] ; then
 			continue
 		fi
+		lines+=(line)
+	done < ${recipe_file};
+
+	IGNORE_RESULTS=0
+	for line in ${lines} ; do
 		local parsedLine=`eval echo "${line}"`
 		echo "Line is ${parsedLine}"
 		local executeResult=`lxd_execute_command ${lxd_host} ${lxd_container} "${parsedLine}"`
 		echo "After executing ${executeResult}"
-	done < ${recipe_file};
+	done
 	IGNORE_RESULTS=${ignore_error}
 }
 
