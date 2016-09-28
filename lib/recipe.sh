@@ -37,7 +37,7 @@ function apply_recipe_file {
 			continue
 		fi
 		local parsedLine=`eval echo "${line}"`
-		lxd_execute_command ${lxd_host} ${lxd_container} ${parsedLine} 
+		lxd_execute_command ${lxd_host} ${lxd_container} "${parsedLine}"
 	done < ${recipe_file};
 }
 
