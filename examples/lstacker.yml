@@ -1,4 +1,6 @@
 lstack:
+  salt:
+    master: salt
   proxy:
     state: yes
     http_url: http://172.0.0.84:3128/

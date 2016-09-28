@@ -36,7 +36,8 @@ function apply_recipe_file {
 		if [[ ${line:0:1} == '#' ]] ; then
 			continue
 		fi
-		lxd_execute_command ${lxd_host} ${lxd_container} ${line} 
+		local parsedLine=`eval echo "${line}"`
+		lxd_execute_command ${lxd_host} ${lxd_container} ${parsedLine} 
 	done < ${recipe_file};
 }
 

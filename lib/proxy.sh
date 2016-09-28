@@ -62,6 +62,18 @@ function debian_configure_proxy {
 
 	lxd_string_to_file_append ${lxd_host} ${lxd_container} "${envProxy}" /etc/network/interfaces
 
+	# apt on ubuntu 14.04 does not work without this change
+	if [ "${linux_version}" -eq "14.04" ] ; then 
+
+		read -r -d '' envProxy <<- EOF
+		Acquire::http::proxy "${proxy}";
+		Acquire::https::proxy "${proxy_https}";
+		EOF
+
+		lxd_string_to_file ${lxd_host} ${lxd_container} "${envProxy}" /etc/apt/apt.conf.d/95proxy
+
+	fi
+
 }
 
 function centos_configure_proxy {

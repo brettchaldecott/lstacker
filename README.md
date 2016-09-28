@@ -10,7 +10,7 @@ LStacker is designed to use a simple build and deploy process and provides the f
 * [LXD](https://linuxcontainers.org/lxd/) is used to build out the server container infrastucture.
 * [Docker](https://www.docker.com/) is fully supported and docker swarm can be used to bring up complex applications.
 * A virtual network using a GRE/VxLAN bridge enables all containers to communicate with each other across the infrastructure. Be they on one or multiple servers. Openvswitch is used to manage this network.
-* The virtual network is normally devided into the following components:
+* The virtual network is normally divided into the following components:
     * Management network: This network is setup to enable the management processes to communicate with the containers. This will be used by thinkgs like check_mk to monitor processes or by the dns server.
     * Test network: This network is used for test purposes. If you want to play around with technology use this network.
     * Development network: This is used for development purposes.
