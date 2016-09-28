@@ -32,6 +32,7 @@ function apply_recipe_file {
 	IGNORE_RESULTS=0
 
 	while read line; do    
+		echo "Line is ${line}"
 		if [[ -z "${line// }" ]] ; then
 			continue
 		fi
@@ -39,6 +40,7 @@ function apply_recipe_file {
 			continue
 		fi
 		local parsedLine=`eval echo "${line}"`
+		echo "Line is ${parsedLine}"
 		lxd_execute_command ${lxd_host} ${lxd_container} "${parsedLine}"
 	done < ${recipe_file};
 	IGNORE_RESULTS=${ignore_error}
