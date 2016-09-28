@@ -59,6 +59,7 @@ function apply_recipe {
 	# apply the recipe from local context
 	local context_base=${LSTACKER_CONTEXT}
 	local recipe_file="${context_base}/${recipe}"
+	echo "Check for a recipe ${recipe_file}"
 	if [ -f ${recipe_file} ]; then
 		return apply_recipe_file ${recipe_file} ${lxd_host} ${lxd_container}
 	fi
@@ -67,15 +68,18 @@ function apply_recipe {
 	local base_path=${LS_BASE_DIR}
 
 	recipe_file="${base_path}/${linux}/${recipe}"
+	echo "Check for a recipe ${recipe_file}"
 	if [ -f ${recipe_file} ] ; then
 		return apply_recipe_file ${recipe_file} ${lxd_host} ${lxd_container}
 	fi
 	recipe_file="${base_path}/${linux}/${linux_version}/${recipe}"
+	echo "Check for a recipe ${recipe_file}"
 	if [ -f ${recipe_file} ] ; then
 		return apply_recipe_file ${recipe_file} ${lxd_host} ${lxd_container}
 	fi
 
-	echo "Failed to find the recipe ${recipe}" >&3
+	echo "Failed to find the recipe ${recipe}"
+	echo_std_out "Failed to find the recipe ${recipe}" >&3
 	exit -1
 }
 
