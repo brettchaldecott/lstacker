@@ -67,19 +67,19 @@ function apply_recipe {
 	# use recipies from installation
 	local base_path=${LS_BASE_DIR}
 
-	recipe_file="${base_path}/${linux}/${recipe}"
+	recipe_file="${base_path}/recipes/${linux}/${recipe}"
 	echo "Check for a recipe ${recipe_file}"
 	if [ -f ${recipe_file} ] ; then
 		return apply_recipe_file ${recipe_file} ${lxd_host} ${lxd_container}
 	fi
-	recipe_file="${base_path}/${linux}/${linux_version}/${recipe}"
+	recipe_file="${base_path}/recipes/${linux}/${linux_version}/${recipe}"
 	echo "Check for a recipe ${recipe_file}"
 	if [ -f ${recipe_file} ] ; then
 		return apply_recipe_file ${recipe_file} ${lxd_host} ${lxd_container}
 	fi
 
 	echo "Failed to find the recipe ${recipe}"
-	echo_std_out "Failed to find the recipe ${recipe}" >&3
+	echo_std_out "Failed to find the recipe ${recipe}"
 	exit -1
 }
 
