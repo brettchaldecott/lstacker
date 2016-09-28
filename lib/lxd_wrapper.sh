@@ -174,8 +174,8 @@ function lxd_execute_command {
 	sudo lxc exec ${lxd_host}:${lxd_container} -- bash -c "${target_command}"
 	command_result=$?
         if [ "${IGNORE_RESULTS}" -ne "0" ] && [ ${command_result} -ne 0 ] ; then
-		echo_std_out "[lxd_destroy_container] Failed to create the container"
-		echo_std_out echo ${source_str} | sudo lxc exec ${lxd_host}:${lxd_container} -- bash -c " tee -a ${target_file}"
+		echo_std_out "[lxd_destroy_container] Failed to execute the command"
+		echo_std_out sudo lxc exec ${lxd_host}:${lxd_container} -- bash -c "${target_command}"
 		exit -1
 	fi
 }
