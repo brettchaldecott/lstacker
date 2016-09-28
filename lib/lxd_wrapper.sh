@@ -85,7 +85,7 @@ function lxd_file_copy {
 	local source_file=$3
 	local target_file=$4
 	echo "cat ${source_file} | sudo lxc exec ${lxd_host}:${lxd_container} -- bash -c \" tee ${target_file}\""
-	cat ${source_file} | sudo lxc exec ${lxd_host}:${lxd_container} -- bash -c " tee ${target_file}"
+	cat "${source_file}" | sudo lxc exec ${lxd_host}:${lxd_container} -- bash -c " tee ${target_file}"
 	command_result=$?
         if [ "${IGNORE_RESULTS}" -ne "0" ] && [ ${command_result} -ne 0 ] ; then
 		echo_std_out "[lxd_destroy_container] Failed to create the container"
@@ -105,7 +105,7 @@ function lxd_file_append {
 	local source_file=$3
 	local target_file=$4
 	echo "cat ${source_file} | sudo lxc exec ${lxd_host}:${lxd_container} -- bash -c \" tee -a ${target_file}\""
-	cat ${source_file} | sudo lxc exec ${lxd_host}:${lxd_container} -- bash -c " tee -a ${target_file}"
+	cat "${source_file}" | sudo lxc exec ${lxd_host}:${lxd_container} -- bash -c " tee -a ${target_file}"
 	command_result=$?
         if [ "${IGNORE_RESULTS}" -ne "0" ] && [ ${command_result} -ne 0 ] ; then
 		echo_std_out "[lxd_destroy_container] Failed to create the container"
