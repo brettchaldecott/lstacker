@@ -60,7 +60,7 @@ function debian_configure_proxy {
 	HTTPS_PROXY=${proxy_https}
 	EOF
 
-	lxd_string_to_file_append ${lxd_host} ${lxd_container} "${envProxy}" /etc/network/interfaces
+	lxd_string_to_file_append ${lxd_host} ${lxd_container} "${envProxy}" /etc/environment
 
 	# apt on ubuntu 14.04 does not work without this change
 	if [ "${linux_version}" == "14.04" ] ; then 
