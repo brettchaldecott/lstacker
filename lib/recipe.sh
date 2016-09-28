@@ -28,6 +28,8 @@ function apply_recipe_file {
 	local recipe_file=$1
 	local lxd_host=$2
 	local lxd_container=$3
+	local ignore_error=${IGNORE_RESULTS}
+	IGNORE_RESULTS=0
 
 	while read line; do    
 		if [[ -z "${line// }" ]] ; then
@@ -39,6 +41,7 @@ function apply_recipe_file {
 		local parsedLine=`eval echo "${line}"`
 		lxd_execute_command ${lxd_host} ${lxd_container} "${parsedLine}"
 	done < ${recipe_file};
+	IGNORE_RESULTS=${ignore_error}
 }
 
 # apply a recipe to a box
