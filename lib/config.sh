@@ -32,6 +32,7 @@ ETH_PROFILE_NAME="lstack_eth"
 IGNORE_RESULTS=1
 LSTACKER_CONTEXT=`pwd`
 ADD_BY_MESSAGE="Added by Lstacker"
+CONTAINER_WAIT_DELAY=5
 
 # determine the lxd source
 declare -A DISTRO_DEFAULT_HOME
