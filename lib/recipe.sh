@@ -41,7 +41,7 @@ function apply_recipe_file {
 		fi
 		local parsedLine=`eval echo "${line}"`
 		echo "Line is ${parsedLine}"
-		local executeResult=`eval lxd_execute_command ${lxd_host} ${lxd_container} "${parsedLine}"`
+		local executeResult=`lxd_execute_command ${lxd_host} ${lxd_container} "${parsedLine}"`
 		echo "After executing ${executeResult}"
 	done < ${recipe_file};
 	IGNORE_RESULTS=${ignore_error}
