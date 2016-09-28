@@ -23,3 +23,4 @@ sudo apt-get update
 sudo apt-get install -y salt-minion
 sed -i 's/\#master: salt/master: ${yml_lstack_salt_master[0]}/g' /etc/salt/minion
 /etc/init.d/salt-minion restart
+
