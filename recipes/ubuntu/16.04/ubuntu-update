@@ -17,5 +17,5 @@
 # This is a update ubuntu file for 
 #
 
-sudo apt-update
-sudo apt-upgrade
+sudo apt update
+sudo apt upgrade
