@@ -28,28 +28,23 @@ function apply_recipe_file {
 	local recipe_file=$1
 	local lxd_host=$2
 	local lxd_container=$3
-	declare -a recipe_lines
-
-	while read -r line; do    
+	local ignore_error=${IGNORE_RESULTS}
+	readarray recipe_lines < ${recipe_file}
+	IGNORE_RESULTS=0
+	for line in ${recipe_lines[@]} ; do
 		if [[ -z "${line// }" ]] ; then
 			continue
 		fi
 		if [[ ${line:0:1} == '#' ]] ; then
 			continue
 		fi
-		echo_std_out "The line is : ${line}"
-		recipe_lines+=("${line}")
-	done < ${recipe_file};
-
-	local ignore_error=${IGNORE_RESULTS}
-	IGNORE_RESULTS=0
-	for line in ${recipe_lines} ; do
 		local parsedLine=`eval echo "${line}"`
 		echo "Line is ${parsedLine}"
 		local executeResult=`lxd_execute_command ${lxd_host} ${lxd_container} "${parsedLine}"`
 		echo "After executing ${executeResult}"
 	done
 	IGNORE_RESULTS=${ignore_error}
+
 }
 
 # apply a recipe to a box
