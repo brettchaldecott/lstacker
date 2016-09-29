@@ -37,7 +37,7 @@ function apply_recipe_file {
 		if [[ ${line:0:1} == '#' ]] ; then
 			continue
 		fi
-		recipe_lines+=("${line}")
+		recipe_lines+=("\"${line}\"")
 	done < ${recipe_file};
 
 	local ignore_error=${IGNORE_RESULTS}
