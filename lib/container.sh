@@ -56,9 +56,9 @@ function create_container {
 	done
 
 	# create the container
+	echo_std_out "Create container <${container_lxd_server}>:<${container_hostname}>"
 	lxd_create_container ${container_linux_distro[0]} ${container_distro_version[0]} ${container_lxd_server} ${container_hostname} container_profiles[@]
 
-	echo_std_out "Wait for container to start ${CONTAINER_WAIT_DELAY}"
 	sleep ${CONTAINER_WAIT_DELAY}
 
 	# setup the networking

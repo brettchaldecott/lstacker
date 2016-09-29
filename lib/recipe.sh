@@ -64,6 +64,9 @@ function apply_recipe {
 	local lxd_container=$4
 	local recipe=$5
 
+	# log the recipe
+	echo_std_out "Apply recipe ${recipe}"
+
 	# apply the recipe from local context
 	local context_base=${LSTACKER_CONTEXT}
 	local recipe_file="${context_base}/${recipe}"

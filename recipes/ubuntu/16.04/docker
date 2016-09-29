@@ -17,5 +17,5 @@
 # This is a lstacker recipe file for docker on ubuntu
 
 sudo apt update
-sudo apt install docker.io
+sudo apt install -y docker.io
 
