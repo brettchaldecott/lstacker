@@ -29,9 +29,11 @@ function apply_recipe_file {
 	local lxd_host=$2
 	local lxd_container=$3
 	local ignore_error=${IGNORE_RESULTS}
-	#readarray -t recipe_lines < ${recipe_file}
+
+	# use a different file descriptor
 	IGNORE_RESULTS=0
-	for line in `cat ${recipe_file}` ; do
+	# this is using a file descriptor of 10 need to track this
+	while read -u 10 line; do    
 		if [[ -z "${line// }" ]] ; then
 			continue
 		fi
@@ -42,7 +44,7 @@ function apply_recipe_file {
 		echo "Line is ${parsedLine}"
 		local executeResult=`lxd_execute_command ${lxd_host} ${lxd_container} "${parsedLine}"`
 		echo "After executing ${executeResult}"
-	done
+	done 10<${recipe_file};
 	IGNORE_RESULTS=${ignore_error}
 
 }
