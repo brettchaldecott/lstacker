@@ -30,14 +30,15 @@ function apply_recipe_file {
 	local lxd_container=$3
 	declare -a recipe_lines
 
-	while read line; do    
+	while read -r line; do    
 		if [[ -z "${line// }" ]] ; then
 			continue
 		fi
 		if [[ ${line:0:1} == '#' ]] ; then
 			continue
 		fi
-		recipe_lines+=("'${line}'")
+		echo_std_out "The line is : ${line}"
+		recipe_lines+=("${line}")
 	done < ${recipe_file};
 
 	local ignore_error=${IGNORE_RESULTS}
