@@ -29,7 +29,7 @@ function apply_recipe_file {
 	local lxd_host=$2
 	local lxd_container=$3
 	local ignore_error=${IGNORE_RESULTS}
-	readarray recipe_lines < ${recipe_file}
+	readarray -t recipe_lines < ${recipe_file}
 	IGNORE_RESULTS=0
 	for line in ${recipe_lines[@]} ; do
 		if [[ -z "${line// }" ]] ; then
