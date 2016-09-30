@@ -27,7 +27,7 @@ function execute_command {
 			exit -1
 			;;
 		version)
-			echo_std_out "Version: ${LSTACK_VERSION}"
+			echo_std_out "Version: ${LSTACKER_VERSION}"
 			exit -1
 			;;
 		stack)
