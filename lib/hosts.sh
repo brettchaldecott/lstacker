@@ -10,9 +10,9 @@ function add_host {
 		exit -1
 	fi
 
-	local fqdn=$3
-	local ip_address=$4
-	local container_network=$5
+	local fqdn=$1
+	local ip_address=$2
+	local container_network=$3
 
 	# create the host directory
 	if [ ! -d ${HOSTS_DIRECTORY} ] ; then
