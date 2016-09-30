@@ -18,4 +18,7 @@
 #
 
 yum update
-
+yum install -y openssh-server
+yum install -y net-tools
+service sshd start
+echo "\"root:${yml_lstack_centos_root_password_default[0]}\"" | chpasswd

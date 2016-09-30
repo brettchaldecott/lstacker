@@ -1,6 +1,8 @@
 lstack:
   salt:
     master: salt
+  centos:
+    root_password_default: centos
   proxy:
     state: yes
     http_url: http://172.0.0.84:3128/
