@@ -44,7 +44,7 @@ function lxd_create_container {
 
 	echo sudo lxc launch ${lxd_create_linux_source}:${lxd_create_linux_image} ${lxd_host}:${lxd_container} ${profiles_str}
 	sudo lxc launch ${lxd_create_linux_source}:${lxd_create_linux_image} ${lxd_host}:${lxd_container} ${profiles_str}
-	command_result=$?
+	local command_result=$?
         if [ "${IGNORE_RESULTS}" -ne "0" ] && [ ${command_result} -ne 0 ] ; then
 		echo_std_out "[lxd_create_container] Failed to create the container"
 		echo_std_out sudo lxc launch ${lxd_create_linux_source}:${lxd_create_linux_image} ${lxd_host}:${lxd_container} ${profiles_str}
@@ -64,7 +64,7 @@ function lxd_destroy_container {
 
 	echo sudo lxc delete -f ${lxd_host}:${lxd_container}
 	sudo lxc delete -f ${lxd_host}:${lxd_container}
-	command_result=$?
+	local command_result=$?
         if [ "${IGNORE_RESULTS}" -ne "0" ] && [ ${command_result} -ne 0 ] ; then
 		echo_std_out "[lxd_destroy_container] Failed to create the container"
 		echo_std_out sudo lxc delete -f ${lxd_host}:${lxd_container}
@@ -147,8 +147,8 @@ function lxd_string_to_file_append {
 	fi
 	local lxd_host=$1
 	local xd_container=$2
-	source_str=$3
-	target_file=$4
+	local source_str=$3
+	local target_file=$4
 	echo "echo ${source_str} | sudo lxc exec ${lxd_host}:${lxd_container} -- bash -c \" tee -a ${target_file}\""
 	echo "${source_str}" | sudo lxc exec ${lxd_host}:${lxd_container} -- bash -c " tee -a ${target_file}"
 	command_result=$?

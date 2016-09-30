@@ -9,6 +9,8 @@ lstack:
     https_url: http://172.0.0.84:3128/
   ssh:
     public_keys: public_keys
+    private_key_file: ~/.ssh/id_rsa
+    username: ubuntu
   networks:
     names:
       - management

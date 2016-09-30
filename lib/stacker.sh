@@ -15,8 +15,19 @@
 #     limitations under the License.
 #
 #
-# lstacker recipe file for install oracle xe
-#
-# This is not complete yet as oracle does not provide a way to wget oracle-xe
+# This is the master stack process
 #
 
+
+function build_stack {
+	echo "Build a stack"
+
+
+}
+
+
+function clear_stack {
+	echo "Clear a stack"
+
+
+}

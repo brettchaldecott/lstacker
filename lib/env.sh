@@ -31,3 +31,4 @@
 . ${LS_BASE_DIR}/lib/ssh_key.sh
 . ${LS_BASE_DIR}/lib/hosts.sh
 . ${LS_BASE_DIR}/lib/stacker.sh
+. ${LS_BASE_DIR}/lib/ssh_wrapper.sh
