@@ -119,7 +119,6 @@ function centos_eth_config {
 	NETWORK=${network}.0.0
 	NETMASK=255.255.0.0 
 	IPADDR=${address}
-	GATEWAY=${network}.0.1
 	USERCTL=no
 	MTU=${ETH_MTU_SIZE}
 	EOF

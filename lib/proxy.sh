@@ -102,4 +102,13 @@ function centos_configure_proxy {
 
 	lxd_string_to_file_append ${lxd_host} ${lxd_container} "${envProxy}" /etc/profile
 
+	read -r -d '' envProxy <<- EOF
+
+	# proxy configuration added by lstacker
+	proxy=${proxy}
+
+	EOF
+
+	lxd_string_to_file_append ${lxd_host} ${lxd_container} "${envProxy}" /etc/yum.conf
+
 }
