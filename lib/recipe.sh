@@ -33,7 +33,7 @@ function apply_recipe_file {
 	# use a different file descriptor
 	IGNORE_RESULTS=0
 	# this is using a file descriptor of 10 need to track this
-	while read -u 10 line; do    
+	while read -r -u 10 line; do    
 		if [[ -z "${line// }" ]] ; then
 			continue
 		fi
