@@ -40,8 +40,9 @@ function apply_recipe_file {
 		if [[ ${line:0:1} == '#' ]] ; then
 			continue
 		fi
+		echo "Before line is ${line}"
 		local parsedLine=`eval echo "${line}"`
-		echo "Line is ${parsedLine}"
+		echo "Parsed line is ${parsedLine}"
 		local executeResult=`lxd_execute_command ${lxd_host} ${lxd_container} "${parsedLine}"`
 		echo "After executing ${executeResult}"
 	done 10<${recipe_file};
