@@ -68,7 +68,7 @@ function debian_eth_config {
 	    network ${network}.0.0
 	    netmask 255.255.0.0
 	    gateway ${network}.0.1
-	    mtu 1400
+	    mtu ${ETH_MTU_SIZE}
 	# end of network interface ${device}
 	EOF
 	
@@ -121,7 +121,7 @@ function centos_eth_config {
 	IPADDR=${address}
 	GATEWAY=${network}.0.1
 	USERCTL=no
-	MTU=1400
+	MTU=${ETH_MTU_SIZE}
 	EOF
 	
 	lxd_string_to_file ${lxd_host} ${lxd_container} "${ethConf}" /etc/sysconfig/network-scripts/ifcfg-${device}
@@ -139,8 +139,11 @@ function centos_eth_up {
 	local lxd_host=$1
 	local lxd_container=$2
 	local device=$3
+	local ignore_result=${IGNORE_RESULTS}
+	IGNORE_RESULTS=0
 	lxd_execute_command ${lxd_host} ${lxd_container} "ifdown ${device}"
 	lxd_execute_command ${lxd_host} ${lxd_container} "ifup ${device}"
+	IGNORE_RESULTS=${ignore_result}
 
 }
 

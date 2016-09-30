@@ -34,6 +34,11 @@ LSTACKER_CONTEXT=`pwd`
 ADD_BY_MESSAGE="Added by Lstacker"
 CONTAINER_WAIT_DELAY=5
 
+# setting the mtu size smaller than the tradition 1500
+# in order to prevent packet fragmentation as GRE and VxLAN networks
+# add headers to each packet.
+ETH_MTU_SIZE=1400
+
 # determine the lxd source
 declare -A DISTRO_DEFAULT_HOME
 DISTRO_DEFAULT_HOME["ubuntu"]="/home/ubuntu"

@@ -1,6 +1,9 @@
-# LStacker - Alpha state not all things mentioned below are complete or tested
+# LStacker
 
 The LStacker project is a virtual infrastructure builder. It builds a virtual container based network on top of the infrastructure supplied to it. Using this approach enables an organisation to quickly build its infrastructure on minimul hardware, in and out of the cloud. Thus maximizing investement.
+
+## Update
+The container creation and destroy commands have now been tested and work correctly. This will require LXD is setup correctly and the appropriate profiles have been created. The next changes will focus on automating this process in order to bring up a complete network environment.
 
 ## Approach
 LStacker is designed to use a simple build and deploy process and provides the following:
