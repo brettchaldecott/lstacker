@@ -73,7 +73,8 @@ lstack:
         - docker
         - default
       recipies:
-        - check_mk
+        - ubuntu-update
+        - check-mk
   lxd3:
   lxd2:
   lxd4:
@@ -88,6 +89,5 @@ lstack:
       lxd_profiles:
         - default
       recipies:
-        - oracle
-        - check_mk
+        - centos-update
 

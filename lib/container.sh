@@ -66,10 +66,13 @@ function create_container {
 	for container_network in ${container_networks[@]} ; do
 		# retrieve the block for the container network
 		eval "declare -a container_network_block=(`get_yaml_config_var networks ${container_network} network`)"
+		eval "declare -a container_network_domain=(`get_yaml_config_var networks ${container_network} domain`)"
 		eval "declare -a container_ip_segment=(`get_yaml_config_var servers ${lxd_host} ip_segment`)"
 		local eth_device="eth${eth_dev_count}"
 		local address="${container_network_block}.${container_ip_segment}.${container_ip_suffix}"
+		local fqdn="${container_hostname}.${container_network_domain}"
 		add_eth ${container_linux_distro[0]} ${container_lxd_server} ${container_hostname} ${eth_device} ${address} ${container_network_block}
+		add_host "${fqdn}" "${address}" "${container_network}"
 		((++eth_dev_count))
 	done
 

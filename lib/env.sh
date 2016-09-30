@@ -29,3 +29,4 @@
 . ${LS_BASE_DIR}/lib/parse_yaml.sh
 . ${LS_BASE_DIR}/lib/container.sh
 . ${LS_BASE_DIR}/lib/ssh_key.sh
+. ${LS_BASE_DIR}/lib/hosts.sh
