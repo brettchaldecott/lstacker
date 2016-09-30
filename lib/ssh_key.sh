@@ -27,7 +27,6 @@ function set_public_key {
 	local lxd_host=$2
 	local lxd_container=$3
 	local ssh_public_key_file=$4
-	echo_std_out "The keys is ${ssh_public_key_file}"
 
 	if [ ${linux} == ubuntu ]; then
 		lxd_file_append ${container_lxd_server} ${container_hostname} ${ssh_public_key_file} "${DISTRO_DEFAULT_HOME["${linux}"]}/.ssh/authorized_keys"
