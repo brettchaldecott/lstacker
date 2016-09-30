@@ -20,7 +20,7 @@ function add_host {
 	fi
 
 	# create the container network file
-	fprint "%s\t%s\n" "${ip_address}" "${fqdn}" | tee -a "${HOSTS_DIRECTORY}/${container_network}_hosts"
-	fprint "%s\t%s\n" "${ip_address}" "${fqdn}" | tee -a "${HOSTS_DIRECTORY}/hosts"
+	fprint "%s\t%s\n" "${ip_address}" "${fqdn}" >> "${HOSTS_DIRECTORY}/${container_network}_hosts"
+	fprint "%s\t%s\n" "${ip_address}" "${fqdn}" >> "${HOSTS_DIRECTORY}/hosts"
 
 }
