@@ -58,7 +58,8 @@ function execute_command {
 function stack {
 	read_config_file ${lstacker_file}
 	echo_std_out "Build Stack"
-	echo_std_out "The yml variable [${yml_development_adapter[0]}]"
+	stacker_build_stack
+	echo_std_out "Finished stacking"
 }
 
 #
@@ -66,6 +67,8 @@ function stack {
 function unstack {
 	read_config_file ${lstacker_file}
 	echo_std_out "Cleanup Stack"
+	container_destory_containers
+	echo_std_out "Finished unstack"
 
 }
 
@@ -83,7 +86,7 @@ function create {
 	fi
 	read_config_file ${lstacker_file}
 	echo_std_out "Create container <${lstacker_host}>:<${lstacker_container}>"
-	create_container ${lstacker_host} ${lstacker_container}
+	container_create_container ${lstacker_host} ${lstacker_container}
 }
 
 # this function is responsible for destorying a container
@@ -100,6 +103,6 @@ function destroy {
 	fi
 	read_config_file ${lstacker_file}
 	echo_std_out "Destroy container <${lstacker_host}>:<${lstacker_container}>"
-	destroy_container ${lstacker_host} ${lstacker_container}
+	container_destroy_container ${lstacker_host} ${lstacker_container}
 	
 }

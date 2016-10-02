@@ -19,15 +19,38 @@
 #
 
 
-function build_stack {
-	echo "Build a stack"
+# this function is responsible for building a stack
+function stacker_build_stack {
+	echo_std_out "Build a stack"
+	
+	network_setup_server
+
+	# setup the profiles
+	lxd_profile_create_network_profiles
 
 
+	# create all the containers
+	container_create_containers
+
+
+	# set the hosts information per network
+	echo_std_out "Finished building stack"
 }
 
 
-function clear_stack {
-	echo "Clear a stack"
+# this function is responsible for clearing up a stack
+function stacker_clear_stack {
+	echo_std_out "Clear a stack"
 
+	# clear all the containers
+	container_destory_containers
+
+	# clear the network pfofiles
+	lxd_profile_clear_network_profiles
+
+	# clear the bridge network
+	network_clear_network
+
+	echo_std_out "Finished clearing the stack"
 
 }

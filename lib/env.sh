@@ -32,3 +32,8 @@
 . ${LS_BASE_DIR}/lib/hosts.sh
 . ${LS_BASE_DIR}/lib/stacker.sh
 . ${LS_BASE_DIR}/lib/ssh_wrapper.sh
+. ${LS_BASE_DIR}/lib/cli_wrapper.sh
+. ${LS_BASE_DIR}/lib/network.sh
+. ${LS_BASE_DIR}/lib/openvswitch.sh
+. ${LS_BASE_DIR}/lib/lxd_profile.sh
+

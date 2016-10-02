@@ -18,7 +18,7 @@
 
 
 # this method is called to create a container
-function create_container {
+function container_create_container {
 	# validate import
 	if [ "$#" -ne 2 ]; then
 		echo_std_out "Illegal number of parameters"
@@ -104,7 +104,7 @@ function create_container {
 	echo_std_out "Created the container ${container}"
 }
 
-function destroy_container {
+function container_destroy_container {
 	if [ "$#" -ne 2 ]; then
 		echo_std_out "Illegal number of parameters"
 		echo_std_out "arguments <host> <container>"
@@ -129,4 +129,81 @@ function destroy_container {
 	echo_std_out "Destroyed the container ${container}"
 }
 
+# create a container
+function container_create_containers_on_host {
+	if [ "$#" -ne 1 ]; then
+		echo_std_out "Illegal number of parameters"
+		echo_std_out "arguments <host>"
+		exit -1
+	fi
 
+	local lxd_host=$1
+	eval "declare -a container_lxd_containers_for_host=(`get_yaml_config_var ${lxd_host} hosts`)"
+	declare -a container_create_container_pid_array
+	for container_lxd_container in ${container_lxd_container_for_host[@]} ; do
+		container_create_container "${lxd_host}" "${container_lxd_container}" &
+		container_create_container_pid_array+=($!)
+	done
+
+	for container_create_container_pid in ${container_create_container_pid_array[@]} ; do
+		wait ${container_create_container_pid}
+	done
+
+}
+
+# destroy a container
+function container_destroy_containers_on_host {
+	if [ "$#" -ne 1 ] ; then
+		echo_std_out "Illegal number of parameters"
+		echo_std_out "arguments <host>"
+		exit -1
+	fi
+
+	local lxd_host=$1
+	eval "declare -a container_lxd_containers_for_host=(`get_yaml_config_var ${lxd_host} hosts`)"
+	declare -a container_destory_container_pid_array
+	for container_lxd_container in ${container_lxd_container_for_host[@]} ; do
+		container_destory_container "${lxd_host}" "${container_lxd_container}" &
+		container_destroy_container_pid_array+=($!)
+	done
+	
+	for container_destory_container_pid in ${container_destory_container_pid_array[@]} ; do
+		wait ${container_destroy_container_pid}
+	done
+}
+
+
+# this function creates the containers accross the network but it does it asynchronisly and waits
+# for the pid's to stop processing
+function container_create_containers {
+
+	local container_lxd_hosts_array=${yml_lstack_servers_names[0]}
+	declare -a container_create_containers_on_host_pid_array
+	for container_lxd_host in ${container_lxd_hosts_array[@]} ; do
+		container_create_containers_on_host ${container_lxd_host} &
+		container_create_containers_on_host_pid_array+=($!)
+	done
+
+	for container_destory_container_pid in ${container_create_containers_on_host_pid_array[@]} ; do
+		wait ${container_destroy_container_pid}
+	done
+
+}
+
+
+# this function destory the containers accross the network but it does it asynchronisly and waits
+# for the pid's to stop processing
+function container_destory_containers {
+
+	local container_lxd_hosts_array=${yml_lstack_servers_names[0]}
+	declare -a container_destroy_containers_on_host_pid_array
+	for container_lxd_host in ${container_lxd_hosts_array[@]} ; do
+		container_destroy_containers_on_host ${container_lxd_host} &
+		container_destroy_containers_on_host_pid_array+=($!)
+	done
+
+	for container_destory_container_pid in ${container_destroy_containers_on_host_pid_array[@]} ; do
+		wait ${container_destroy_container_pid}
+	done
+
+}
