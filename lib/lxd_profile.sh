@@ -47,7 +47,7 @@ function lxd_profile_create_network_profile {
 	EOF
 	
 	# edit the profile
-	cli_execute_command_with_input "${host}" "sudo lxc profile edit ${profile_name}" "${lxc_network_profile}"
+	cli_execute_command_with_input "${host}" "sudo lxc profile edit ${profile_name}" "${lxd_network_profile}"
 
 }
 
