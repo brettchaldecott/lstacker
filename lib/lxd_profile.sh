@@ -72,13 +72,13 @@ function lxd_profile_delete_network_profile {
 # this function will create all the profiles on the network
 function lxd_profile_create_network_profiles {
 	local servers=${yml_lstack_servers_names[@]}
-	if [ -z ${master_switch} ] ; then
+	if [ -z "${servers[@]}" ] ; then
 		echo_std_out "Must provide the lstack_server_names configuration"
 		exit -1
 	fi
 
 	# setup lxc profiles for networks
-	for network_setup_server in servers[@] ; do
+	for network_setup_server in ${servers[@]} ; do
 		# retrieve the server configuration
 		local yaml_name_var_name="yml_lstack_servers_${network_setup_server}_name"
 		local yaml_name_var=${!yaml_name_var_name}
@@ -98,13 +98,13 @@ function lxd_profile_create_network_profiles {
 # this function will clear all the profiles on the network
 function lxd_profile_clear_network_profiles {
 	local servers=${yml_lstack_servers_names[@]}
-	if [ -z ${master_switch} ] ; then
+	if [ -z "${servers[@]}" ] ; then
 		echo_std_out "Must provide the lstack_server_names configuration"
 		exit -1
 	fi
 
 	# clear lxc profiles for networks
-	for network_setup_server in servers[@] ; do
+	for network_setup_server in ${servers[@]} ; do
 		# retrieve the server configuration
 		local yaml_name_var_name="yml_lstack_servers_${network_setup_server}_name"
 		local yaml_name_var=${!yaml_name_var_name}
