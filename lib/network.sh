@@ -36,22 +36,23 @@ function network_setup_network {
 	fi
 
 	# setup lxc profiles for networks
-	for network_setup_server in servers[@] ; do
+	for network_setup_server in ${servers[@]} ; do
 		# retrieve the server configuration
+		echo "The network setup server ${network_setup_server}"
 		local yaml_ip_var_name="yml_lstack_servers_${network_setup_server}_ip"
 		local yaml_ip_var=${!yaml_ip_var_name}
-		if [ -z yaml_ip_var ] ; then
+		if [ -z ${yaml_ip_var} ] ; then
 			echo_std_out "No ip information for the server [${network_setup_server}]"
 			exit -1
 		fi
 		local yaml_name_var_name="yml_lstack_servers_${network_setup_server}_name"
 		local yaml_name_var=${!yaml_name_var_name}
-		if [ -z yaml_name_var ] ; then
+		if [ -z ${yaml_name_var} ] ; then
 			echo_std_out "No name information for the server [${network_setup_server}]"
 			exit -1
 		fi
 		
-
+		echo "Setup the network for ${yaml_name_var}:${yaml_ip_var}"
 		if [ "${network_setup_server}" == "${master_switch}" ] ; then
 			declare -a network_setup_ip_array
 			local network_server_names=${yaml_lstack_names[@]}
@@ -79,6 +80,7 @@ function network_setup_network {
 			declare -a network_setup_ip_array=("${yaml_ip_master_var}")
 			openvswitch_create_bridge "${yaml_name_var}" network_setup_ip_array[@]
 		fi
+		echo "After settup network on ${yaml_name_var}:${yaml_ip_var}"
 	done
 }
 
