@@ -56,7 +56,7 @@ function network_setup_network {
 		if [ "${network_setup_server}" == "${master_switch}" ] ; then
 			declare -a network_setup_ip_array
 			local network_server_names=${yaml_lstack_names[@]}
-			for network_setup_target_server in ${network_server_names} ; do
+			for network_setup_target_server in ${network_server_names[@]} ; do
 				if [ "${network_setup_server}" == "${network_setup_target_server}" ] ; then
 					continue
 				fi
@@ -68,7 +68,7 @@ function network_setup_network {
 				fi
 				network_setup_ip_array+=("${yaml_ip_target_var}")
 			done
-
+			echo "Create the bridge ${network_setup_ip_array[@]}"
 			openvswitch_create_bridge "${yaml_name_var}" network_setup_ip_array[@]
 		else
 			local yaml_ip_master_var_name="yml_lstack_servers_${network_setup_server}_ip"
