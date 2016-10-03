@@ -57,6 +57,7 @@ function network_setup_network {
 			declare -a network_setup_ip_array
 			local network_server_names=${yaml_lstack_names[@]}
 			for network_setup_target_server in ${network_server_names[@]} ; do
+				echo "Retrieve the target information ${network_setup_target_server}"
 				if [ "${network_setup_server}" == "${network_setup_target_server}" ] ; then
 					continue
 				fi
@@ -66,6 +67,7 @@ function network_setup_network {
 					echo_std_out "No target ip was supplied for [${network_setup_target_server}]"
 					exit -1
 				fi
+				echo "Adding the local ip ${yaml_ip_target_var}"
 				network_setup_ip_array+=("${yaml_ip_target_var}")
 			done
 			echo "Create the bridge ${network_setup_ip_array[@]}"
@@ -80,7 +82,7 @@ function network_setup_network {
 			declare -a network_setup_ip_array=("${yaml_ip_master_var}")
 			openvswitch_create_bridge "${yaml_name_var}" network_setup_ip_array[@]
 		fi
-		echo "After settup network on ${yaml_name_var}:${yaml_ip_var}"
+		echo "After setup network on ${yaml_name_var}:${yaml_ip_var}"
 	done
 }
 
