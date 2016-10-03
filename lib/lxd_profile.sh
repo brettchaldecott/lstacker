@@ -87,7 +87,7 @@ function lxd_profile_create_network_profiles {
 			exit -1
 		fi
 		local device_number=1
-		local network_names=${yml_lstack_servers_names[@]}
+		local network_names=${yml_lstack_networks_names[@]}
 		for lxd_profile_network in ${network_names[@]} ; do
 			lxd_profile_create_network_profile ${yaml_name_var} ${device_number}
 			((++device_number))
@@ -113,7 +113,7 @@ function lxd_profile_clear_network_profiles {
 			exit -1
 		fi
 		local device_number=1
-		local network_names=${yml_lstack_servers_names[@]}
+		local network_names=${yml_lstack_networks_names[@]}
 		for lxd_profile_network in ${network_names[@]} ; do
 			lxd_profile_delete_network_profile ${yaml_name_var} ${device_number}
 			((++device_number))
