@@ -141,8 +141,8 @@ function container_create_containers_on_host {
 	echo "Create the containers on host ${lxd_host}"
 	eval "declare -a container_lxd_containers_for_host=(`get_yaml_config_var ${lxd_host} hosts`)"
 	declare -a container_create_container_pid_array
-	echo "The list of containers on host ${lxd_host} ${container_lxd_container_for_host[@]}"
-	for container_lxd_container in ${container_lxd_container_for_host[@]} ; do
+	echo "The list of containers on host ${lxd_host} ${container_lxd_containers_for_host[@]}"
+	for container_lxd_container in ${container_lxd_containers_for_host[@]} ; do
 		echo "Create the container ${lxd_host} ${container_lxd_container}"
 		container_create_container "${lxd_host}" "${container_lxd_container}" &
 		container_create_container_pid_array+=($!)
@@ -167,8 +167,9 @@ function container_destroy_containers_on_host {
 	local lxd_host=$1
 	eval "declare -a container_lxd_containers_for_host=(`get_yaml_config_var ${lxd_host} hosts`)"
 	declare -a container_destory_container_pid_array
-	echo "The list of containers on host ${lxd_host} ${container_lxd_container_for_host[@]}"
-	for container_lxd_container in ${container_lxd_container_for_host[@]} ; do
+	echo "The list of containers on host ${lxd_host} ${container_lxd_containers_for_host[@]}"
+	for container_lxd_container in ${container_lxd_containers_for_host[@]} ; do
+		echo "Destroy the container ${lxd_host} ${container_lxd_container}"
 		container_destory_container "${lxd_host}" "${container_lxd_container}" &
 		container_destroy_container_pid_array+=($!)
 	done
