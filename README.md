@@ -35,8 +35,8 @@ LXD/LXC has to be configured appropriatly.
 1. Init LXD using the `lxd init` command. This has to be peformed on all boxes. Select the configuration that makes the most sense for your environment. I recommend running on a ZFS pool, if this is not available than a standard dir backend will work fine.
 2. The management port has to be exposed and the trust password set on all lxd instances.
 
-    sudo lxc config set core.https_address [::]
-    sudo lxc config set core.trust_password some-password
+```sudo lxc config set core.https_address [::]
+   sudo lxc config set core.trust_password some-password```
 
 3. All LXD servers have to know about each other. This requires they are registered as remotes with each other.
    `sudo lxc remote add lxd1 <ip address or DNS of remote service>`
