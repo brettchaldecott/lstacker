@@ -57,7 +57,7 @@ function network_setup_network {
 			declare -a network_setup_ip_array
 			local network_server_names=${yaml_lstack_names[@]}
 			for network_setup_target_server in ${network_server_names[@]} ; do
-				echo "Retrieve the target information ${network_setup_target_server}"
+				echo "Retrieve the target information ${network_setup_server}:${network_setup_target_server}"
 				if [ "${network_setup_server}" == "${network_setup_target_server}" ] ; then
 					continue
 				fi
@@ -73,7 +73,7 @@ function network_setup_network {
 			echo "Create the bridge ${network_setup_ip_array[@]}"
 			openvswitch_create_bridge "${yaml_name_var}" network_setup_ip_array[@]
 		else
-			local yaml_ip_master_var_name="yml_lstack_servers_${network_setup_server}_ip"
+			local yaml_ip_master_var_name="yml_lstack_servers_${master_switch}_ip"
 			local yaml_ip_master_var="${!yaml_ip_master_var_name}"
 			if [ -z ${yaml_ip_master_var} ] ; then
 				echo_std_out "No master ip was supplied for [${network_setup_server}]"
