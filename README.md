@@ -46,7 +46,8 @@ LXD/LXC has to be configured appropriatly.
 
 ## Openvswitch
 Openvswitch has to be installed on all hosts. This can be done through apt as follows:
-   `sudo apt install openvswitch-switch`
+
+```sudo apt install openvswitch-switch```
 
 ## Build Process
 
