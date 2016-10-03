@@ -30,10 +30,10 @@ function openvswitch_create_bridge {
 	local host=$1
 	declare -a openvswitch_ip_array=("${!2}")
 	
-	cli_execute_command "${host}" "sudo ovs-vsctl --may-exist add-br ${BRIDGE_NAME}"
+	cli_execute_command "${host}" "sudo ovs-vsctl add-br ${BRIDGE_NAME}"
 	local eth_dev_count=0
 	for openvswitch_ip in ${openvswitch_ip_array[@]} ; do
-		cli_execute_command "${host}" "sudo ovs-vsctl --may-exist add-port ${BRIDGE_NAME} gre-${eth_dev_count} -- set interface gre-${eth_dev_count} type=gre options:remote_ip=${openvswitch_ip}"
+		cli_execute_command "${host}" "sudo ovs-vsctl add-port ${BRIDGE_NAME} gre-${eth_dev_count} -- set interface gre-${eth_dev_count} type=gre options:remote_ip=${openvswitch_ip}"
 		((++eth_dev_count))
 	done
 
