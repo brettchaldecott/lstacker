@@ -180,12 +180,13 @@ function container_create_containers {
 	local container_lxd_hosts_array=${yml_lstack_servers_names[0]}
 	declare -a container_create_containers_on_host_pid_array
 	for container_lxd_host in ${container_lxd_hosts_array[@]} ; do
-		container_create_containers_on_host ${container_lxd_host} &
+		echo "Create the containers on host ${container_lxd_host}"
+		container_create_containers_on_host "${container_lxd_host}" &
 		container_create_containers_on_host_pid_array+=($!)
 	done
 
-	for container_destory_container_pid in ${container_create_containers_on_host_pid_array[@]} ; do
-		wait ${container_destroy_container_pid}
+	for container_create_container_pid in ${container_create_containers_on_host_pid_array[@]} ; do
+		wait ${container_create_container_pid}
 	done
 
 }
@@ -198,6 +199,7 @@ function container_destory_containers {
 	local container_lxd_hosts_array=${yml_lstack_servers_names[0]}
 	declare -a container_destroy_containers_on_host_pid_array
 	for container_lxd_host in ${container_lxd_hosts_array[@]} ; do
+		echo "Destroy the containers on host ${container_lxd_host}"
 		container_destroy_containers_on_host ${container_lxd_host} &
 		container_destroy_containers_on_host_pid_array+=($!)
 	done
