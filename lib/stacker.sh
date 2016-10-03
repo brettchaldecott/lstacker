@@ -23,7 +23,7 @@
 function stacker_build_stack {
 	echo_std_out "Build a stack"
 	
-	network_setup_server
+	network_setup_network
 
 	# setup the profiles
 	lxd_profile_create_network_profiles
