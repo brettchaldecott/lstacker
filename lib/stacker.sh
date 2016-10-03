@@ -40,7 +40,7 @@ function stacker_build_stack {
 
 # this function is responsible for clearing up a stack
 function stacker_clear_stack {
-	echo_std_out "Clear a stack"
+	echo "Clear a stack"
 
 	# clear all the containers
 	container_destory_containers
@@ -51,6 +51,6 @@ function stacker_clear_stack {
 	# clear the bridge network
 	network_clear_network
 
-	echo_std_out "Finished clearing the stack"
+	echo "Finished clearing the stack"
 
 }
