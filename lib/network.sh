@@ -55,7 +55,7 @@ function network_setup_network {
 		echo "Setup the network for ${yaml_name_var}:${yaml_ip_var}"
 		if [ "${network_setup_server}" == "${master_switch}" ] ; then
 			declare -a network_setup_ip_array
-			local network_server_names=${yaml_lstack_servers_names[@]}
+			local network_server_names=${yml_lstack_servers_names[@]}
 			for network_setup_target_server in ${network_server_names[@]} ; do
 				echo "Retrieve the target information ${network_setup_server}:${network_setup_target_server}"
 				if [ "${network_setup_server}" == "${network_setup_target_server}" ] ; then
