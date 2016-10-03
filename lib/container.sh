@@ -141,7 +141,7 @@ function container_create_containers_on_host {
 	echo "Create the containers on host ${lxd_host}"
 	eval "declare -a container_lxd_containers_for_host=(`get_yaml_config_var ${lxd_host} hosts`)"
 	declare -a container_create_container_pid_array
-	echo "The list of containers on a host ${container_lxd_container_for_host[@]}"
+	echo "The list of containers on host ${lxd_host} ${container_lxd_container_for_host[@]}"
 	for container_lxd_container in ${container_lxd_container_for_host[@]} ; do
 		echo "Create the container ${lxd_host} ${container_lxd_container}"
 		container_create_container "${lxd_host}" "${container_lxd_container}" &
@@ -167,6 +167,7 @@ function container_destroy_containers_on_host {
 	local lxd_host=$1
 	eval "declare -a container_lxd_containers_for_host=(`get_yaml_config_var ${lxd_host} hosts`)"
 	declare -a container_destory_container_pid_array
+	echo "The list of containers on host ${lxd_host} ${container_lxd_container_for_host[@]}"
 	for container_lxd_container in ${container_lxd_container_for_host[@]} ; do
 		container_destory_container "${lxd_host}" "${container_lxd_container}" &
 		container_destroy_container_pid_array+=($!)
@@ -182,7 +183,7 @@ function container_destroy_containers_on_host {
 # for the pid's to stop processing
 function container_create_containers {
 
-	local container_lxd_hosts_array=${yml_lstack_servers_names[0]}
+	local container_lxd_hosts_array=${yml_lstack_servers_names[@]}
 	declare -a container_create_containers_on_host_pid_array
 	for container_lxd_host in ${container_lxd_hosts_array[@]} ; do
 		echo "Create the containers on host ${container_lxd_host}"
@@ -201,7 +202,7 @@ function container_create_containers {
 # for the pid's to stop processing
 function container_destory_containers {
 
-	local container_lxd_hosts_array=${yml_lstack_servers_names[0]}
+	local container_lxd_hosts_array=${yml_lstack_servers_names[@]}
 	declare -a container_destroy_containers_on_host_pid_array
 	for container_lxd_host in ${container_lxd_hosts_array[@]} ; do
 		echo "Destroy the containers on host ${container_lxd_host}"
