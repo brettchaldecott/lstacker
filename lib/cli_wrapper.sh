@@ -76,11 +76,11 @@ function cli_execute_command_with_input {
 	else
 		local yaml_ip_var_name="yml_lstack_servers_${server}_ip"
 		local yaml_ip_var=${!yaml_ip_var_name}
-		if [ -z ${yaml_ip_var} ] ; then
+		if [ -z "${yaml_ip_var}" ] ; then
 			echo_std_out "[cli_execute_command] failed to retrieve the ip information for ${server}"
 			exit -1
 		fi
-		ssh_execute_command "${yaml_ip_var}" "${remote_command}" "${input}"
+		ssh_execute_command_with_input "${yaml_ip_var}" "${remote_command}" "${input}"
 	fi
 
 }
