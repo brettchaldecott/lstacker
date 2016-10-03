@@ -29,7 +29,7 @@ fi
 
 LSTACKER_VERSION=0.0.1
 ETH_PROFILE_NAME="lstacker_eth"
-BRIDGE_NAME="br-lstacker-gre0"
+BRIDGE_NAME="br-ls-gre0"
 IGNORE_RESULTS=1
 LSTACKER_CONTEXT=`pwd`
 ADD_BY_MESSAGE="Added by Lstacker"
