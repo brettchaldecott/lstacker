@@ -67,7 +67,7 @@ function stack {
 function unstack {
 	read_config_file ${lstacker_file}
 	echo_std_out "Cleanup Stack"
-	container_destory_containers
+	stacker_clear_stack
 	echo_std_out "Finished unstack"
 
 }
