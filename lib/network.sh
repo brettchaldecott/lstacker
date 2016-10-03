@@ -93,14 +93,14 @@ function network_clear_network {
 
 	# retrieve the yml server names that have to cleared
 	local servers=${yml_lstack_servers_names[@]}
-	if [ -z ${master_switch} ] ; then
+	if [ -z "${servers[@]}" ] ; then
 		echo_std_out "Must provide the lstack_server_names configuration"
 		exit -1
 	fi
 
 
 	# setup lxc profiles for networks
-	for network_setup_server in servers[@] ; do
+	for network_setup_server in ${servers[@]} ; do
 		local yaml_name_var_name="yml_lstack_servers_${network_setup_server}_name"
 		local yaml_name_var=${!yaml_name_var_name}
 		if [ -z yaml_name_var ] ; then
