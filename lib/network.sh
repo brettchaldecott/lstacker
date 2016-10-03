@@ -25,12 +25,12 @@ function network_setup_network {
 
 	# setup gre bridge
 	local master_switch=${yml_lstack_networks_master_switch_server[0]}
-	if [ -z ${master_switch} ] ; then
+	if [ -z "${master_switch}" ] ; then
 		echo_std_out "Must provide the lstack_networks_master_switch_server configuration"
 		exit -1
 	fi
 	local servers=${yml_lstack_servers_names[@]}
-	if [ -z ${servers} ] ; then
+	if [ -z "${servers[@]}" ] ; then
 		echo_std_out "Must provide the lstack_server_names configuration"
 		exit -1
 	fi
