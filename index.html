@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Lstacker by brettchaldecott</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>Lstacker</h1>
+          <h2>A virtual network infrastructure builder.</h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/brettchaldecott/lstacker/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/brettchaldecott/lstacker/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/brettchaldecott/lstacker" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h1>
+<a id="lstacker" class="anchor" href="#lstacker" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>LStacker</h1>
+
+<p>The LStacker project is a virtual infrastructure builder. It builds a virtual container based network on top of the infrastructure supplied to it. Using this approach enables an organisation to quickly build its infrastructure on minimul hardware, in and out of the cloud. Thus maximizing investement.</p>
+
+<h2>
+<a id="update" class="anchor" href="#update" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Update</h2>
+
+<p>The container creation and destroy commands have now been tested and work correctly, I am now testing the network an profile creation processes. When this process is complete iwill be possible to stack an entire network matching your requirements.</p>
+
+<h2>
+<a id="approach" class="anchor" href="#approach" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Approach</h2>
+
+<p>LStacker is designed to use a simple build and deploy process and provides the following:</p>
+
+<ul>
+<li>A simple Yaml configuration file is used to define the network and server infrastructure.</li>
+<li>Infrasture is built on top of simple vanilla VM's or Cloud instances. And can easily be rebuilt at any stage. <a href="http://www.ubuntu.com/">Ubuntu</a> 16.04 is a requirement at present.</li>
+<li>
+<a href="https://linuxcontainers.org/lxd/">LXD</a> is used to build out the server container infrastucture.</li>
+<li>
+<a href="https://www.docker.com/">Docker</a> is fully supported and docker swarm can be used to bring up complex applications.</li>
+<li>A virtual network using a GRE/VxLAN bridge enables all containers to communicate with each other across the infrastructure. Be they on one or multiple servers. Openvswitch is used to manage this network.</li>
+<li>The virtual network is normally divided into the following components:
+
+<ul>
+<li>Management network: This network is setup to enable the management processes to communicate with the containers. This will be used by monitoring processes such as check_mk, or by the dns server.</li>
+<li>Test network: This network is used for test purposes. If you want to play around with technology use this network.</li>
+<li>Development network: This is used for development purposes.</li>
+<li>QA network: A network for QA purposes</li>
+<li>Production network: A network for production purposes.</li>
+</ul>
+</li>
+<li>A jump-box is built as a means to access the virtual network. Use <a href="http://sshuttle.readthedocs.io/">sshuttle</a> to setup a VPN like connection into the jump-box and then access all the virtual infrastructure as if you were on the network. Multiple can be built if horizontal loading within the network is a requirement.</li>
+<li>At present production instances can be exposed by port mapping onto a reverse proxy like haproxy. This is a recommended service for the jump box.</li>
+</ul>
+
+<h2>
+<a id="instastructure" class="anchor" href="#instastructure" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Instastructure</h2>
+
+<p>I recommend running on a minum of 4 either virtual machines or cloud instances. These you can allocate as you see fit in your Lstacker build file. If you are worried about the costs then use micro instances on EC2 will work, but more may have to be allocated. This will not cause a problem with the build process. If cost is not a factor than I recommend a medium instance or higher.</p>
+
+<ol>
+<li>Install vanilla version of <a href="http://www.ubuntu.com/download/server">Ubuntu</a> 16.04 onto the target virtual machines or cloud instances.</li>
+<li>Ear mark a virtual machine or instance as the master server and setup ssh access from it to the other instances.</li>
+<li>Clone this project and add it to the PATH environment variable on the master server.</li>
+</ol>
+
+<h2>
+<a id="lxd-setup" class="anchor" href="#lxd-setup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>LXD Setup</h2>
+
+<p>LXD/LXC has to be configured appropriatly.</p>
+
+<ol>
+<li>Init LXD using the <code>lxd init</code> command. This has to be peformed on all boxes. Select the configuration that makes the most sense for your environment. I recommend running on a ZFS pool, if this is not available than a standard dir backend will work fine.</li>
+<li>
+<p>The management port has to be exposed and the trust password set on all lxd instances.</p>
+
+<pre><code>sudo lxc config set core.https_address [::]
+sudo lxc config set core.trust_password some-password
+</code></pre>
+</li>
+<li><p>All LXD servers have to know about each other. This requires they are registered as remotes with each other.
+<code>sudo lxc remote add lxd1 &lt;ip address or DNS of remote service&gt;</code></p></li>
+</ol>
+
+<h2>
+<a id="openvswitch" class="anchor" href="#openvswitch" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Openvswitch</h2>
+
+<p>Openvswitch has to be installed on all hosts. This can be done through apt as follows:</p>
+
+<p><code>sudo apt install openvswitch-switch</code></p>
+
+<h2>
+<a id="build-process" class="anchor" href="#build-process" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Build Process</h2>
+
+<ol>
+<li>Setup a lstacker context directory.</li>
+<li>Write a <code>lstacker.yaml</code> file defining the network and infrastructure. There are example provided with this project.</li>
+<li>Build the infrastructure
+<code>lstacker stack</code>
+</li>
+</ol>
+        </section>
+
+        <footer>
+          Lstacker is maintained by <a href="https://github.com/brettchaldecott">brettchaldecott</a><br>
+          This page was generated by <a href="https://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
+  </body>
+</html>
