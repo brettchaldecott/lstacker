@@ -23,7 +23,7 @@ LStacker is designed to use a simple build and deploy process and provides the f
 * At present production instances can be exposed by port mapping onto a reverse proxy like haproxy. This is a recommended service for the jump box.
 
 ## Instastructure
-I recommend running on a minum of 4 either virtual machines or cloud instances. These you can allocate as you see fit in your Lstacker build file. If you are worried about the costs then use micro instances on EC2(They are free), you will just have to allocate more of them. This will not cause a problem with the build process. If cost is not a factor than I recommend a medium instance or higher as they 
+I recommend running on a minum of 4 either virtual machines or cloud instances. These you can allocate as you see fit in your Lstacker build file. If you are worried about the costs then use micro instances on EC2 will work, but more may have to be allocated. This will not cause a problem with the build process. If cost is not a factor than I recommend a medium instance or higher.
 
 1. Install vanilla version of [Ubuntu](http://www.ubuntu.com/download/server) 16.04 onto the target virtual machines or cloud instances.
 2. Ear mark a virtual machine or instance as the master server and setup ssh access from it to the other instances.
