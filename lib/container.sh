@@ -29,6 +29,7 @@ function container_create_container {
 	local lxd_host=$1
 	local container=$2
 	local yaml_container=${container/-/_}
+	echo_std_out "Create the container ${container}"
 
 	# retrieve the yaml configuration
 	if ! has_yaml_config_var servers ${lxd_host} name ; then
