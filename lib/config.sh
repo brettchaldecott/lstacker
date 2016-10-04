@@ -105,7 +105,6 @@ function get_yaml_config_var {
 	local config="yml_lstack"
 	for key in "$@" ; do
 		config="${config}_${key}"
-		((counter++))
 	done
 	config=${config}[@]
 	declare -a yamlArray=("${!config}")
@@ -126,7 +125,6 @@ function has_yaml_config_var {
 	local config="yml_lstack"
 	for key in "$@" ; do
 		config="${config}_${key}"
-		((counter++))
 	done
 	config=${config}[@]
 	declare -a yamlArray=("${!config}")
