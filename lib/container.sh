@@ -166,7 +166,7 @@ function container_destroy_containers_on_host {
 
 	local lxd_host=$1
 	eval "declare -a container_lxd_containers_for_host=(`get_yaml_config_var ${lxd_host} hosts`)"
-	declare -a container_destory_container_pid_array
+	declare -a container_destroy_container_pid_array
 	echo "The list of containers on host ${lxd_host} ${container_lxd_containers_for_host[@]}"
 	for container_lxd_container in ${container_lxd_containers_for_host[@]} ; do
 		echo "Destroy the container ${lxd_host} ${container_lxd_container}"
@@ -174,7 +174,7 @@ function container_destroy_containers_on_host {
 		container_destroy_container_pid_array+=($!)
 	done
 	
-	for container_destory_container_pid in ${container_destory_container_pid_array[@]} ; do
+	for container_destroy_container_pid in ${container_destroy_container_pid_array[@]} ; do
 		wait ${container_destroy_container_pid}
 	done
 }
@@ -211,7 +211,7 @@ function container_destroy_containers {
 		container_destroy_containers_on_host_pid_array+=($!)
 	done
 
-	for container_destory_container_pid in ${container_destroy_containers_on_host_pid_array[@]} ; do
+	for container_destroy_container_pid in ${container_destroy_containers_on_host_pid_array[@]} ; do
 		wait ${container_destroy_container_pid}
 	done
 
