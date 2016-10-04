@@ -29,7 +29,7 @@ function container_create_container {
 	local lxd_host=$1
 	local container=$2
 	local yaml_container=${container/-/_}
-	echo_std_out "Create the container ${container}"
+	echo_std_out "Create the container ${lxd_host}:${container}"
 
 	# retrieve the yaml configuration
 	if ! has_yaml_config_var servers ${lxd_host} name ; then
@@ -102,7 +102,7 @@ function container_create_container {
 		done
 	fi
 
-	echo_std_out "Created the container ${container}"
+	echo_std_out "Created the container ${lxd_host}:${container}"
 }
 
 function container_destroy_container {
@@ -115,6 +115,7 @@ function container_destroy_container {
 	local lxd_host=$1
 	local container=$2
 	local yaml_container=${container/-/_}
+	echo_std_out "Destroy the container ${lxd_host}:${container}"
 
 	if ! has_yaml_config_var servers ${lxd_host} name ; then
 		echo_std_out "LXD host ${lxd_host} not found"
@@ -127,7 +128,7 @@ function container_destroy_container {
 	fi
 	eval "declare -a container_hostname=(`get_yaml_config_var ${lxd_host} ${yaml_container} host`)"
 	lxd_destroy_container ${container_lxd_server} ${container_hostname}
-	echo_std_out "Destroyed the container ${container}"
+	echo_std_out "Destroyed the container ${lxd_host}:${container}"
 }
 
 # create a container
