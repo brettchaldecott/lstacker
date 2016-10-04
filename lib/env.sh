@@ -16,6 +16,8 @@
 #     limitations under the License.
 #
 
+# force lstacker to exit if it uses variables that dont exist
+set -u
 
 # imports
 . ${LS_BASE_DIR}/lib/logging.sh
