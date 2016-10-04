@@ -43,11 +43,13 @@ function lxd_create_container {
 	get_lxd_image lxd_create_linux_image ${linux} ${linux_version}
 
 	echo sudo lxc launch ${lxd_create_linux_source}:${lxd_create_linux_image} ${lxd_host}:${lxd_container} ${profiles_str}
-	sudo lxc launch ${lxd_create_linux_source}:${lxd_create_linux_image} ${lxd_host}:${lxd_container} ${profiles_str}
+	local result_command=`sudo lxc launch ${lxd_create_linux_source}:${lxd_create_linux_image} ${lxd_host}:${lxd_container} ${profiles_str}`
 	local command_result=$?
+	echo "Result: ${result_command}"
         if [ "${IGNORE_RESULTS}" -ne "0" ] && [ ${command_result} -ne 0 ] ; then
 		echo_std_out "[lxd_create_container] Failed to create the container"
 		echo_std_out sudo lxc launch ${lxd_create_linux_source}:${lxd_create_linux_image} ${lxd_host}:${lxd_container} ${profiles_str}
+		echo_std_out "The result of the command : ${result_command:-}"
 		exit -1
 	fi
 }
@@ -63,11 +65,13 @@ function lxd_destroy_container {
 	local lxd_container=$2
 
 	echo sudo lxc delete -f ${lxd_host}:${lxd_container}
-	sudo lxc delete -f ${lxd_host}:${lxd_container}
+	local result_command=`sudo lxc delete -f ${lxd_host}:${lxd_container}`
 	local command_result=$?
+	echo "Result: ${result_command}"
         if [ "${IGNORE_RESULTS}" -ne "0" ] && [ ${command_result} -ne 0 ] ; then
-		echo_std_out "[lxd_destroy_container] Failed to create the container"
+		echo_std_out "[lxd_destroy_container] Failed to destroy the container"
 		echo_std_out sudo lxc delete -f ${lxd_host}:${lxd_container}
+		echo_std_out "The result of the command : ${result_command:-}"
 		exit -1
 	fi
 
@@ -89,8 +93,9 @@ function lxd_file_copy {
 	local command_result=$?
 	echo "Result of copy: ${result_command}"
         if [ "${IGNORE_RESULTS}" -ne "0" ] && [ ${command_result} -ne 0 ] ; then
-		echo_std_out "[lxd_destroy_container] Failed to create the container"
+		echo_std_out "[lxd_file_copy] Failed to copy the file"
 		echo_std_out cat ${source_file} | sudo lxc exec ${lxd_host}:${lxd_container} -- bash -c " tee ${target_file}"
+		echo_std_out "The result of the command : ${result_command:-}"
 		exit -1
 	fi
 }
@@ -110,8 +115,9 @@ function lxd_file_append {
 	local command_result=$?
 	echo "Result of append: ${result_command}"
         if [ "${IGNORE_RESULTS}" -ne "0" ] && [ ${command_result} -ne 0 ] ; then
-		echo_std_out "[lxd_destroy_container] Failed to create the container"
+		echo_std_out "[lxd_file_append] Failed to append the file"
 		echo_std_out cat ${source_file} | sudo lxc exec ${lxd_host}:${lxd_container} -- bash -c " tee -a ${target_file}"
+		echo_std_out "The result of the command : ${result_command:-}"
 		exit -1
 	fi
 }
@@ -129,11 +135,13 @@ function lxd_string_to_file {
 	local source_str=$3
 	local target_file=$4
 	echo "echo ${source_str} | sudo lxc exec ${lxd_host}:${lxd_container} -- bash -c \" tee ${target_file}\""
-	echo "${source_str}" | sudo lxc exec ${lxd_host}:${lxd_container} -- bash -c " tee ${target_file}"
-	command_result=$?
+	local result_command=`echo "${source_str}" | sudo lxc exec ${lxd_host}:${lxd_container} -- bash -c " tee ${target_file}"`
+	local command_result=$?
+	echo "The result of the command : ${result_command:-}"
         if [ "${IGNORE_RESULTS}" -ne "0" ] && [ ${command_result} -ne 0 ] ; then
-		echo_std_out "[lxd_destroy_container] Failed to create the container"
+		echo_std_out "[lxd_string_to_file] Failed to convert the string to a file on the target system"
 		echo_std_out echo ${source_str} | sudo lxc exec ${lxd_host}:${lxd_container} -- bash -c " tee ${target_file}"
+		echo_std_out "The result of the command : ${result_command:-}"
 		exit -1
 	fi
 }
@@ -150,11 +158,13 @@ function lxd_string_to_file_append {
 	local source_str=$3
 	local target_file=$4
 	echo "echo ${source_str} | sudo lxc exec ${lxd_host}:${lxd_container} -- bash -c \" tee -a ${target_file}\""
-	echo "${source_str}" | sudo lxc exec ${lxd_host}:${lxd_container} -- bash -c " tee -a ${target_file}"
-	command_result=$?
+	local result_command=`echo "${source_str}" | sudo lxc exec ${lxd_host}:${lxd_container} -- bash -c " tee -a ${target_file}"`
+	local command_result=$?
+	echo "The result of the command : ${result_command:-}"
         if [ "${IGNORE_RESULTS}" -ne "0" ] && [ ${command_result} -ne 0 ] ; then
-		echo_std_out "[lxd_destroy_container] Failed to create the container"
+		echo_std_out "[lxd_string_to_file_append] Failed to append the string to the file"
 		echo_std_out echo ${source_str} | sudo lxc exec ${lxd_host}:${lxd_container} -- bash -c " tee -a ${target_file}"
+		echo_std_out "The result of the command : ${result_command:-}"
 		exit -1
 	fi
 }
@@ -171,11 +181,13 @@ function lxd_execute_command {
 	local lxd_container=$2
 	local target_command=$3
 	echo sudo lxc exec ${lxd_host}:${lxd_container} -- bash -c "${target_command}"
-	sudo lxc exec ${lxd_host}:${lxd_container} -- bash -c "${target_command}"
-	command_result=$?
+	local result_command=`sudo lxc exec ${lxd_host}:${lxd_container} -- bash -c "${target_command}"`
+	local command_result=$?
+	echo "The result of the command : ${result_command:-}"
         if [ "${IGNORE_RESULTS}" -ne "0" ] && [ ${command_result} -ne 0 ] ; then
-		echo_std_out "[lxd_destroy_container] Failed to execute the command"
+		echo_std_out "[lxd_execute_command] Failed to execute the command"
 		echo_std_out sudo lxc exec ${lxd_host}:${lxd_container} -- bash -c "${target_command}"
+		echo_std_out "The result of the command : ${result_command:-}"
 		exit -1
 	fi
 }
