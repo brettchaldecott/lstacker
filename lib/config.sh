@@ -21,12 +21,6 @@
 # Programmatic configuration
 
 
-# linux version
-if [ -z ${LINUX_VERSION} ] ; then
-	LINUX_VERSION=16.04
-	LINUX=ubuntu-daily
-fi
-
 LSTACKER_VERSION=0.0.1
 ETH_PROFILE_NAME="lstacker_eth"
 BRIDGE_NAME="br-ls-gre0"
