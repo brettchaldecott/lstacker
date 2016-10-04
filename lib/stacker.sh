@@ -43,7 +43,7 @@ function stacker_clear_stack {
 	echo "Clear a stack"
 
 	# clear all the containers
-	container_destory_containers
+	container_destroy_containers
 
 	# clear the network pfofiles
 	lxd_profile_clear_network_profiles
