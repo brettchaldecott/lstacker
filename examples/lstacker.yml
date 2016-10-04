@@ -21,7 +21,7 @@ lstack:
     master_switch_server: lxd1
     management:
       network: 192.170
-      domain: roids.example.com
+      domain: man.example.com
     dev:
       network: 192.180
       domain: dev.example.com
@@ -45,6 +45,22 @@ lstack:
       name: local
       ip: 172.0.0.85
       ip_segment: 0
+      ports:
+        - 8080
+        - 80
+        - 10022
+      8080:
+        container: jump-box
+        target_port: 8080
+        source_port: 8080
+      80:
+        container: jump-box
+        target_port: 80
+        source_port: 80
+      10022:
+        container: jump-box
+        target_port: 22
+        source_port: 10022
     lxd2:
       type: lxd
       name: lxd2

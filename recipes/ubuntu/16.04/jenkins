@@ -1,0 +1,24 @@
+#
+# copyright 2016-10 brett.chaldecott@gmail.com
+#
+# licensed under the apache license, version 2.0 (the "license");
+# you may not use this file except in compliance with the license.
+# you may obtain a copy of the license at
+# 
+#     http://www.apache.org/licenses/license-2.0
+# 
+#     unless required by applicable law or agreed to in writing, software
+#     distributed under the license is distributed on an "as is" basis,
+#     without warranties or conditions of any kind, either express or implied.
+#     see the license for the specific language governing permissions and
+#     limitations under the license.
+#
+#
+# lstacker recipe file for jenkins. the reason for the no-check-certificates is because this
+# recipe was written behind a proxy that performed an intercept of http packets
+#
+wget --no-check-certificate -q -O - https://pkg.jenkins.io/debian/jenkins-ci.org.key | sudo apt-key add -
+echo 'deb http://pkg.jenkins.io/debian-stable binary/' \| tee /etc/apt/sources.list.d/jenkins.list
+sudo apt update
+sudo apt install -y jenkins
+
