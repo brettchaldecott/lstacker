@@ -85,7 +85,6 @@ function create {
 		exit -1
 	fi
 	read_config_file ${lstacker_file}
-	echo_std_out "Create container <${lstacker_host}>:<${lstacker_container}>"
 	container_create_container ${lstacker_host} ${lstacker_container}
 }
 
@@ -102,7 +101,6 @@ function destroy {
 		exit -1
 	fi
 	read_config_file ${lstacker_file}
-	echo_std_out "Destroy container <${lstacker_host}>:<${lstacker_container}>"
 	container_destroy_container ${lstacker_host} ${lstacker_container}
 	
 }
