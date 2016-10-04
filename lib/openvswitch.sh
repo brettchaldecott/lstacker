@@ -36,6 +36,8 @@ function openvswitch_create_bridge {
 		cli_execute_command "${host}" "sudo ovs-vsctl --may-exist add-port ${BRIDGE_NAME} gre-${eth_dev_count} -- set interface gre-${eth_dev_count} type=gre options:remote_ip=${openvswitch_ip}"
 		((++eth_dev_count))
 	done
+	# enable spanning tree. this is critical
+	cli_execute_command "${host}" "sudo ovs-vsctl set bridge ${BRIDGE_NAME} stp_enable=true"
 
 }
 
