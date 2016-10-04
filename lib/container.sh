@@ -170,7 +170,7 @@ function container_destroy_containers_on_host {
 	echo "The list of containers on host ${lxd_host} ${container_lxd_containers_for_host[@]}"
 	for container_lxd_container in ${container_lxd_containers_for_host[@]} ; do
 		echo "Destroy the container ${lxd_host} ${container_lxd_container}"
-		container_destory_container "${lxd_host}" "${container_lxd_container}" &
+		container_destroy_container "${lxd_host}" "${container_lxd_container}" &
 		container_destroy_container_pid_array+=($!)
 	done
 	
@@ -201,7 +201,7 @@ function container_create_containers {
 
 # this function destory the containers accross the network but it does it asynchronisly and waits
 # for the pid's to stop processing
-function container_destory_containers {
+function container_destroy_containers {
 
 	local container_lxd_hosts_array=${yml_lstack_servers_names[@]}
 	declare -a container_destroy_containers_on_host_pid_array
