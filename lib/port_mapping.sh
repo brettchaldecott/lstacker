@@ -159,7 +159,7 @@ function port_mapping_clear_ports {
 	echo_std_out "Clear ports"
 	local hosts_array=${yml_lstack_servers_names[@]}
 	for port_mapping_lxd_host in ${hosts_array[@]} ; do
-		echo "Map the ports on ${hosts_lxd_host}"
+		echo "Map the ports on ${port_mapping_lxd_host}"
 		port_mapping_clear_ports_for_host "${port_mapping_lxd_host}"
 	done
 	echo_std_out "Ports mapped"
