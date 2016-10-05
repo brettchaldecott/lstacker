@@ -68,6 +68,14 @@ function hosts_set_hosts {
 	local hosts_array=${yml_lstack_servers_names[@]}
 	for hosts_lxd_host in ${hosts_array[@]} ; do
 		echo "Set the hosts on the containers on ${hosts_lxd_host}"
-		hosts_set_hosts_on_server "${hosts_lxd_host}"
+		hosts_set_hosts_on_host "${hosts_lxd_host}"
 	done
+}
+
+function hosts_clear_hosts {
+	# clear the hosts directory 
+	if [ -d ${HOSTS_DIRECTORY} ] ; then
+		rm -f "${HOSTS_DIRECTORY}/*"
+	fi
+
 }
