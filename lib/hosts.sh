@@ -36,9 +36,9 @@ function hosts_set_hosts_on_container {
 	local container=$2
 	local yaml_container=${container/-/_}
 
-	eval "declare -a hosts_networks=(`get_yaml_config_var ${lxd_host} ${yaml_container} networks`)"
+	eval "declare -a hosts_networks=(`get_yaml_config_var ${host} ${yaml_container} networks`)"
 	
-	for hosts_network in ${hosts_networks} ; do
+	for hosts_network in ${hosts_networks[@]} ; do
 		echo "Set hosts ${hosts_network} on ${host}:${container}"
 		lxd_file_append "${host}" "${container}" "${HOSTS_DIRECTORY}/${container_network}_hosts" "/etc/hosts"
 	done
