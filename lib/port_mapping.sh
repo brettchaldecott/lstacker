@@ -16,16 +16,18 @@
 #
 # This file is responsible for managing the port mappings
 
-
-function map_ports {
+# this function is called to map ports
+function port_mapping_map_ports {
 	# validate import
 	if [ "$#" -ne 1 ]; then
-		echo_std_out "Illegal number of parameters"
+		echo_std_out "[port_mapping_map_ports] Illegal number of parameters"
 		echo_std_out "arguments <host>"
+		echo_std_out "Got $@"
 		exit -1
 	fi
 	
-	
+	local host=$1
+
 
 }
 

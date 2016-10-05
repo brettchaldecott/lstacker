@@ -23,15 +23,17 @@
 function stacker_build_stack {
 	echo_std_out "Build a stack"
 	
+	# setp the network
 	network_setup_network
 
 	# setup the profiles
 	lxd_profile_create_network_profiles
 
-
 	# create all the containers
 	container_create_containers
 
+	# set the hosts on the network
+	hosts_set_hosts
 
 	# set the hosts information per network
 	echo_std_out "Finished building stack"

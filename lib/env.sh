@@ -38,4 +38,5 @@ set -u
 . ${LS_BASE_DIR}/lib/network.sh
 . ${LS_BASE_DIR}/lib/openvswitch.sh
 . ${LS_BASE_DIR}/lib/lxd_profile.sh
+. ${LS_BASE_DIR}/lib/port_mapping.sh
 
