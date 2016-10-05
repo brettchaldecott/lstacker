@@ -1,4 +1,8 @@
 lstack:
+  ldap:
+    password: password
+    domain: example.com
+    organisation: example
   salt:
     master: salt
   centos:
@@ -98,7 +102,7 @@ lstack:
         - default
       recipies:
         - ubuntu-update
-        - check-mk
+        - haproxy
   lxd3:
   lxd2:
   lxd4:
