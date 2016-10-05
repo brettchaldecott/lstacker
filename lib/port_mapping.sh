@@ -118,7 +118,7 @@ function port_mapping_map_ports_for_host {
 	local host=$1
 	echo "Port mapping for ${host}"
 	eval "declare -a port_mapping_map_ports=(`get_yaml_config_var "${host}" ports`)"
-	for port_mapping_map_port in ${port_mapping_map_ports[@]} ; do
+	for port_mapping_map_port in ${port_mapping_map_ports[@]:-} ; do
 		port_mapping_map_ports_for_host_and_port ${host} ${port_mapping_map_port}
 	done
 }
@@ -136,7 +136,7 @@ function port_mapping_clear_ports_for_host {
 	local host=$1
 	echo "Clear port mapping for ${host}"
 	eval "declare -a port_mapping_clear_ports=(`get_yaml_config_var "${host}" ports`)"
-	for port_mapping_clear_port in ${port_mapping_clear_ports[@]} ; do
+	for port_mapping_clear_port in ${port_mapping_clear_ports[@]:-} ; do
 		port_mapping_clear_ports_for_host_and_port ${host} ${port_mapping_clear_port}
 	done
 }
