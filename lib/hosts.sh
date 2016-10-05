@@ -77,6 +77,8 @@ function hosts_clear_hosts {
 	if [ -d "${HOSTS_DIRECTORY}" ] ; then
 		echo "Clear the hosts directory ${HOSTS_DIRECTORY}"
 		rm -f "${HOSTS_DIRECTORY}/*"
+	else
+		echo "Which is the directory ${HOSTS_DIRECTORY}"
 	fi
 
 }
