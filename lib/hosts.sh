@@ -57,7 +57,7 @@ function hosts_set_hosts_on_host {
 	eval "declare -a hosts_lxd_containers_for_host=(`get_yaml_config_var ${host} hosts`)"
 	echo "The list of containers on host ${host} ${hosts_lxd_containers_for_host[@]}"
 	for hosts_lxd_container in ${hosts_lxd_containers_for_host[@]} ; do
-		echo "Set the hosts on container ${lxd_host} ${container_lxd_container}"
+		echo "Set the hosts on container ${host} ${hosts_lxd_container}"
 		hosts_set_hosts_on_container "${host}" "${hosts_lxd_container}"
 	done
 
