@@ -74,7 +74,7 @@ function hosts_set_hosts {
 
 function hosts_clear_hosts {
 	# clear the hosts directory 
-	if [ -d ${HOSTS_DIRECTORY} ] ; then
+	if [ -d "${HOSTS_DIRECTORY}" ] ; then
 		echo "Clear the hosts directory ${HOSTS_DIRECTORY}"
 		rm -f "${HOSTS_DIRECTORY}/*"
 	fi
