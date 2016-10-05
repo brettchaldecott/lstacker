@@ -33,6 +33,7 @@ function port_mapping_map_ports_for_host_and_port {
 	eval "declare -a port_mapping_target_port=(`get_yaml_config_var "${host}" "${port}" target_port`)"
 	eval "declare -a port_mapping_source_port=(`get_yaml_config_var "${host}" "${port}" source_port`)"
 	eval "declare -a port_mapping_source_dev=(`get_yaml_config_var "${host}" "${port}" source_dev`)"
+	eval "declare -a port_mapping_lxd_server=(`get_yaml_config_var servers ${host} name`)"
 	if [ -z "${port_mapping_container[@]}"] || [ -z "${port_mapping_target_port[@]}" ] || [ -z "${port_mapping_source_port[@]}" ] || [ -z "${port_mapping_source_dev[@]}" ] ; then
 		echo_std_out "[port_mapping_map_ports_for_host_and_port] incorrect port mapping for ${host}:${port}"
 		echo_std_out "must provide [container][target_port][source_port] for port mappin"
@@ -41,17 +42,17 @@ function port_mapping_map_ports_for_host_and_port {
 	fi
 
 	# retrieve the target ip for the port mapping
-	local target_ip=`cli_execute_command ${host} "lxc list ${port_mapping_container[0]} -c 4 | grep eth0 | cut -d ' ' -f 2"`
+	local target_ip=`cli_execute_command ${port_mapping_lxd_server} "lxc list ${port_mapping_container[0]} -c 4 | grep eth0 | cut -d ' ' -f 2"`
 	local target_ip_result=$?
 	if [ ! ${target_ip_result} ] ; then
 		echo_std_out "[port_mapping_map_ports_for_host_and_port] failed to retrieve the target ip"
-		echo_std_out "Query on server ${host}:${port_mapping_container[0]}"
+		echo_std_out "Query on server ${port_mapping_lxd_server}:${port_mapping_container[0]}"
 		echo_std_out "Got ${target_ip}"
 		return ${target_ip_result}
 	fi
 
 	# setup the port forwarding
-	local port_forward_result=`cli_execute_command ${host} "sudo iptables -t nat -A PREROUTING -i ${port_mapping_source_dev[0]} -p tcp --dport ${port_mapping_source_port[0]} -j DNAT --to ${target_ip}:${port_mapping_target_port}"`
+	local port_forward_result=`cli_execute_command ${port_mapping_lxd_server} "sudo iptables -t nat -A PREROUTING -i ${port_mapping_source_dev[0]} -p tcp --dport ${port_mapping_source_port[0]} -j DNAT --to ${target_ip}:${port_mapping_target_port}"`
 	local port_forward_result_no=$?
 	if [ ! ${port_forward_result_no} ] ; then
 		echo_std_out "[port_mapping_map_ports_for_host_and_port] failed to map the ports"
@@ -75,6 +76,7 @@ function port_mapping_clear_ports_for_host_and_port {
 	local port=$2
 
 	eval "declare -a port_mapping_source_port=(`get_yaml_config_var "${host}" "${port}" source_port`)"
+	eval "declare -a port_mapping_lxd_server=(`get_yaml_config_var servers ${host} name`)"
 	if [ -z "${port_mapping_source_port[@]}" ] ; then
 		echo_std_out "[port_mapping_clear_ports_for_host_and_port] incorrect port mapping for ${host}:${port}"
 		echo_std_out "must provide [source_port] for port mapping"
@@ -83,7 +85,7 @@ function port_mapping_clear_ports_for_host_and_port {
 	fi
 
 	# retrieve the line numbers
-	local rule_line_numbers=(`cli_execute_command ${host} "sudo iptables -t nat --line-numbers -L | grep DNAT | grep ${port_mapping_source_port[0]} | cut -d ' ' -f 1"`)
+	local rule_line_numbers=(`cli_execute_command ${port_mapping_lxd_server} "sudo iptables -t nat --line-numbers -L | grep DNAT | grep ${port_mapping_source_port[0]} | cut -d ' ' -f 1"`)
 	local rule_line_number_result=$?
 	if [ ! ${rule_line_number_result} ] ; then
 		echo_std_out "[port_mapping_map_ports_for_host_and_port] failed to retrieve the target ip"
@@ -93,7 +95,7 @@ function port_mapping_clear_ports_for_host_and_port {
 	fi
 	for port_mapping_rule_line_number in ${rule_line_numbers[@]} ; do
 		# setup the port forwarding
-		local clear_port_forward_result=`cli_execute_command ${host} "sudo iptables -t nat -D PREROUTING ${port_mapping_rule_line_number}"`
+		local clear_port_forward_result=`cli_execute_command ${port_mapping_lxd_server} "sudo iptables -t nat -D PREROUTING ${port_mapping_rule_line_number}"`
 		local clear_port_forward_result_no=$?
 		if [ ! ${clear_port_forward_result_no} ] ; then
 			echo_std_out "[port_mapping_clear_ports_for_host_and_port] failed to clear the port"
