@@ -50,6 +50,9 @@ function stacker_clear_stack {
 	# clear the port mapping
 	port_mapping_clear_ports
 
+	# clear the hosts
+	hosts_clear_hosts
+
 	# clear all the containers
 	container_destroy_containers
 
