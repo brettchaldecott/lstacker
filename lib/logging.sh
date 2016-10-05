@@ -20,12 +20,18 @@
 exec 3>&1 4>&2
 trap 'exec 2>&4 1>&3' 0 1 2 3
 exec 1>> ${LS_BASE_DIR}/logs/lstacker.log 2>&1
+exec 2>> ${LS_BASE_DIR}/logs/lstacker.log 2>&1
 # log everything to the lite stack log file
 
 
 # echo to standard out
 function echo_std_out {
 	echo $@ >&3
+}
+
+# echo to a log file
+function echo_log {
+	echo $@ >&4
 }
 
 function printf_std_out {

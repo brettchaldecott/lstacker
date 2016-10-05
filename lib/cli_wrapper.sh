@@ -30,15 +30,16 @@ function cli_execute_command {
 	local remote_command=$2
 
 	if [ ${server} == "local" ] ; then
-		echo "${remote_command}"
+		echo_log "${remote_command}"
 		local cli_result=`${remote_command}`
 		local command_result=$?
-		echo "The result of the cli: ${cli_result}"
+		echo "${cli_result}"
 		if [ "${IGNORE_RESULTS}" -ne "0" ] && [ ${command_result} -ne 0 ] ; then
 			echo_std_out "[cli_execute_command] Failed to execute the command result"
 			echo_std_out "${remote_command}"
 			exit -1
 		fi
+		return ${command_result}
 	else
 		local yaml_ip_var_name="yml_lstack_servers_${server}_ip"
 		local yaml_ip_var=${!yaml_ip_var_name}
@@ -46,7 +47,10 @@ function cli_execute_command {
 			echo_std_out "[cli_execute_command] failed to retrieve the ip information for ${server}"
 			exit -1
 		fi
-		ssh_execute_command "${yaml_ip_var}" "${remote_command}"
+		local ssh_result=`ssh_execute_command "${yaml_ip_var}" "${remote_command}"`
+		local command_result=$?
+		echo "${ssh_result}"
+		return ${command_result}
 	fi
 
 }
@@ -64,15 +68,16 @@ function cli_execute_command_with_input {
 	local input=$3
 
 	if [ ${server} == "local" ] ; then
-		echo "echo \"${input}\" | ${remote_command}"
+		echo_log "echo \"${input}\" | ${remote_command}"
 		local cli_result=`echo "${input}" | ${remote_command}`
 		local command_result=$?
-		echo "The result of the cli: ${cli_result}"
+		echo "${cli_result}"
 		if [ "${IGNORE_RESULTS}" -ne "0" ] && [ ${command_result} -ne 0 ] ; then
 			echo_std_out "[cli_execute_command] Failed to execute the command result"
 			echo_std_out "echo \"${input}\" | ${remote_command}"
 			exit -1
 		fi
+		return ${command_result}
 	else
 		local yaml_ip_var_name="yml_lstack_servers_${server}_ip"
 		local yaml_ip_var=${!yaml_ip_var_name}
@@ -80,7 +85,11 @@ function cli_execute_command_with_input {
 			echo_std_out "[cli_execute_command] failed to retrieve the ip information for ${server}"
 			exit -1
 		fi
-		ssh_execute_command_with_input "${yaml_ip_var}" "${remote_command}" "${input}"
+		local ssh_result=`ssh_execute_command_with_input "${yaml_ip_var}" "${remote_command}" "${input}"`
+		local command_result=$?
+		echo "${ssh_result}"
+		return ${command_result}
 	fi
 
 }
+

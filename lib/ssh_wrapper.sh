@@ -34,15 +34,16 @@ function ssh_execute_command {
 	ssh_check_key_file ${key_file}
 	ssh_check_username ${ssh_user}
 	
-	echo "ssh -i ${key_file} ${ssh_user}\@${server} \"${remote_command}\""
+	echo_log "ssh -i ${key_file} ${ssh_user}\@${server} \"${remote_command}\""
 	local ssh_result=`ssh -i ${key_file} ${ssh_user}\@${server} "${remote_command}"`
 	local command_result=$?
-	echo "The result of the ssh: ${ssh_result}"
+	echo "${ssh_result}"
         if [ "${IGNORE_RESULTS}" -ne "0" ] && [ ${command_result} -ne 0 ] ; then
 		echo_std_out "[ssh_execute_command] Failed to execute the command result"
 		echo_std_out "ssh -i ${key_file} ${ssh_user}\@${server} \"${remote_command}\""
 		exit -1
 	fi
+	return ${command_result}
 
 }
 
@@ -63,15 +64,16 @@ function ssh_execute_command_with_input {
 	ssh_check_key_file ${key_file}
 	ssh_check_username ${ssh_user}
 	
-	echo "echo \"${input}\" | ssh -i ${key_file} ${ssh_user}\@${server} \"${remote_command}\""
+	echo_log "echo \"${input}\" | ssh -i ${key_file} ${ssh_user}\@${server} \"${remote_command}\""
 	local ssh_result=`echo "${input}" | ssh -i ${key_file} ${ssh_user}\@${server} "${remote_command}"`
 	local command_result=$?
-	echo "The result of the ssh: ${ssh_result}"
+	echo "${ssh_result}"
         if [ "${IGNORE_RESULTS}" -ne "0" ] && [ ${command_result} -ne 0 ] ; then
 		echo_std_out "[ssh_execute_command] Failed to execute the command result"
 		echo_std_out "echo \"${input}\" | ssh -i ${key_file} ${ssh_user}\@${server} \"${remote_command}\""
 		exit -1
 	fi
+	return ${command_result}
 
 }
 
@@ -92,15 +94,16 @@ function ssh_execute_command_with_file {
 	ssh_check_key_file ${key_file}
 	ssh_check_username ${ssh_user}
 	
-	echo "cat \"${input_file}\" | ssh -i ${key_file} ${ssh_user}\@${server} \"${remote_command}\""
+	echo_log "cat \"${input_file}\" | ssh -i ${key_file} ${ssh_user}\@${server} \"${remote_command}\""
 	local ssh_result=`cat "${input_file}" | ssh -i ${key_file} ${ssh_user}\@${server} "${remote_command}"`
 	local command_result=$?
-	echo "The result of the ssh: ${ssh_result}"
+	echo "${ssh_result}"
         if [ "${IGNORE_RESULTS}" -ne "0" ] && [ ${command_result} -ne 0 ] ; then
 		echo_std_out "[ssh_execute_command] Failed to execute the command result"
 		echo_std_out "cat \"${input_file}\" | ssh -i ${key_file} ${ssh_user}\@${server} \"${remote_command}\""
 		exit -1
 	fi
+	return ${command_result}
 
 }
 

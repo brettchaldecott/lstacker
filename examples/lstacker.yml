@@ -45,22 +45,6 @@ lstack:
       name: local
       ip: 172.0.0.85
       ip_segment: 0
-      ports:
-        - 8080
-        - 80
-        - 10022
-      8080:
-        container: jump-box
-        target_port: 8080
-        source_port: 8080
-      80:
-        container: jump-box
-        target_port: 80
-        source_port: 80
-      10022:
-        container: jump-box
-        target_port: 22
-        source_port: 10022
     lxd2:
       type: lxd
       name: lxd2
@@ -77,6 +61,25 @@ lstack:
       ip: 172.0.0.84
       ip_segment: 150
   lxd1:
+    ports:
+      - 8080
+      - 80
+      - 10022
+    8080:
+      container: jump-box
+      target_port: 8080
+      source_port: 8080
+      source_dev: eth0
+    80:
+      container: jump-box
+      target_port: 80
+      source_port: 80
+      source_dev: eth0
+    10022:
+      container: jump-box
+      target_port: 22
+      source_port: 10022
+      source_dev: eth0
     hosts:
       - jump-box
     jump_box:
