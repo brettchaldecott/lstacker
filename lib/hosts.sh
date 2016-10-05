@@ -40,7 +40,7 @@ function hosts_set_hosts_on_container {
 	
 	for hosts_network in ${hosts_networks[@]} ; do
 		echo "Set hosts ${hosts_network} on ${host}:${container}"
-		lxd_file_append "${host}" "${container}" "${HOSTS_DIRECTORY}/${container_network}_hosts" "/etc/hosts"
+		lxd_file_append "${host}" "${container}" "${HOSTS_DIRECTORY}/${hosts_network}_hosts" "/etc/hosts"
 	done
 
 }
