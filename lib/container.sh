@@ -72,7 +72,7 @@ function container_create_container {
 		local address="${container_network_block}.${container_ip_segment}.${container_ip_suffix}"
 		local fqdn="${container_hostname}.${container_network_domain}"
 		add_eth ${container_linux_distro[0]} ${container_lxd_server} ${container_hostname} ${eth_device} ${address} ${container_network_block}
-		add_host "${fqdn}" "${address}" "${container_network}"
+		hosts_add_host "${fqdn}" "${address}" "${container_network}"
 		((++eth_dev_count))
 	done
 
