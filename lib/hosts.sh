@@ -76,7 +76,9 @@ function hosts_clear_hosts {
 	# clear the hosts directory 
 	if [ -d "${HOSTS_DIRECTORY}" ] ; then
 		echo "Clear the hosts directory ${HOSTS_DIRECTORY}"
-		rm -f "${HOSTS_DIRECTORY}/*"
+		rm -f ${HOSTS_DIRECTORY}/*
+		local delete_result=$?
+		echo "After clearing the hosts directory ${HOSTS_DIRECTORY} ${delete_result}"
 	else
 		echo "The directory ${HOSTS_DIRECTORY} does not exist"
 	fi
