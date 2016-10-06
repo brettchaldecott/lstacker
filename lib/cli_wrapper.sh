@@ -69,8 +69,9 @@ function cli_execute_command_with_input {
 	local input=$3
 
 	if [ ${server} == "local" ] ; then
-		echo_log "echo \"${input}\" | ${remote_command}"
-		local cli_result=`echo "${input}" | ${remote_command}`
+		local command_str="echo \"${input}\" | ${remote_command}"
+		echo_log "${command_str}"
+		local cli_result=`eval ${command_str}`
 		local command_result=$?
 		echo "${cli_result}"
 		if [ "${IGNORE_RESULTS}" -ne "0" ] && [ ${command_result} -ne 0 ] ; then
