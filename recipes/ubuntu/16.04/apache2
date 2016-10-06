@@ -16,4 +16,4 @@
 #
 # lstacker recipe file for installing apache
 #
-sudo apt install apache2
+sudo apt install apache2 -y
