@@ -142,18 +142,21 @@ function container_create_containers_on_host {
 	local lxd_host=$1
 	echo "Create the containers on host ${lxd_host}"
 	eval "declare -a container_lxd_containers_for_host=(`get_yaml_config_var ${lxd_host} hosts`)"
-	declare -a container_create_container_pid_array
+	#declare -a container_create_container_pid_array
 	echo "The list of containers on host ${lxd_host} ${container_lxd_containers_for_host[@]}"
 	for container_lxd_container in ${container_lxd_containers_for_host[@]} ; do
 		echo "Create the container ${lxd_host} ${container_lxd_container}"
-		container_create_container "${lxd_host}" "${container_lxd_container}" &
-		container_create_container_pid_array+=($!)
+		local result=`container_create_container "${lxd_host}" "${container_lxd_container}"`
+		echo "Create the container ${lxd_host} ${container_lxd_container}"
+		echo "Result: ${result}"
+		#container_create_container "${lxd_host}" "${container_lxd_container}" &
+		#container_create_container_pid_array+=($!)
 	done
 
-	for container_create_container_pid in ${container_create_container_pid_array[@]} ; do
-		echo "Wait for the pid ${container_create_container_pid}"
-		wait ${container_create_container_pid}
-	done
+	#for container_create_container_pid in ${container_create_container_pid_array[@]} ; do
+#		echo "Wait for the pid ${container_create_container_pid}"
+#		wait ${container_create_container_pid}
+#	done
 	echo "Create complete"
 
 }
