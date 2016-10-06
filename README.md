@@ -38,6 +38,13 @@ sudo apt install lxd openvswitch-switch -y
 sudo reboot
 ```
 
+## Hostname configuration
+Make sure the hosts names are configured correctly. This is not a requirement but will reduce the amount of warnings that will come to the console. To do this follow these steps:
+
+1. Edit the host name file with your editor of choice for example `sudo vi /etc/hostname`. Set the hostname to 
+2. Edit the hosts file and add the hostname of choice to the loop back ip entra. `sudo vi /etc/hosts` 
+3. Set the hostname for the running instance by running the host command. `sudo hostname <host name>`
+
 ## LXD Setup
 LXD/LXC has to be configured appropriatly.
 
