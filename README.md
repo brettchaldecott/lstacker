@@ -29,6 +29,15 @@ I recommend running on a minum of 4 either virtual machines or cloud instances. 
 2. Ear mark a virtual machine or instance as the master server and setup ssh access from it to the other instances.
 3. Clone this project and add it to the PATH environment variable on the master server.
 
+## System setup
+Each VM or cloud instance needs to be updated as follows.
+```
+sudo apt update
+sudo apt upgrade -y
+sudo apt install lxd openvswitch-switch -y
+sudo reboot
+```
+
 ## LXD Setup
 LXD/LXC has to be configured appropriatly.
 
