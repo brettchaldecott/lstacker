@@ -16,4 +16,6 @@
 #
 sudo wget http://files.omdistro.org/nightly/1.31.20160713/omd-1.31.20160713.trusty.amd64.deb
 sudo dpkg -i omd-1.31.20160713.trusty.amd64.deb
+sudo apt-get -f install
+sudo dpkg -i omd-1.31.20160713.trusty.amd64.deb
 sudo omd create lstacker
