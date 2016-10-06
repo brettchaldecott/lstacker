@@ -12,12 +12,9 @@
 #     limitations under the license.
 #
 #
-# The recipe installs version 1.31 of omd
+# Mysql install
 #
-sudo wget http://files.omdistro.org/nightly/1.31.20160713/omd-1.31.20160713.trusty.amd64.deb
+sudo apt update
 echo 'mysql-server mysql-server/root_password password change_me' \| sudo debconf-set-selections
 echo 'mysql-server mysql-server/root_password_again password change_me' \| sudo debconf-set-selections
-DEBIAN_FRONTEND=noninteractive dudo dpkg -i omd-1.31.20160713.trusty.amd64.deb -y
-DEBIAN_FRONTEND=noninteractive sudo apt-get -f install -y
-DEBIAN_FRONTEND=noninteractive sudo dpkg -i omd-1.31.20160713.trusty.amd64.deb -y
-sudo omd create lstacker
+sudo apt -y install mysql-server
