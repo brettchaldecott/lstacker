@@ -85,7 +85,7 @@ function port_mapping_clear_ports_for_host_and_port {
 	fi
 
 	# retrieve the line numbers
-	eval "declare -a port_mapping_rule_line_numbers=(`cli_execute_command ${port_mapping_lxd_server} "sudo iptables -t nat --line-numbers -L \| grep DNAT \| grep ${port_mapping_source_port[0]} | cut -d ' ' -f 1"`)"
+	local rule_line_numbers=(`cli_execute_command ${port_mapping_lxd_server} "sudo iptables -t nat --line-numbers -L \| grep DNAT \| grep ${port_mapping_source_port[0]} | cut -d ' ' -f 1"`)
 	local rule_line_number_result=$?
 	if [ ! ${rule_line_number_result} ] ; then
 		echo_std_out "[port_mapping_map_ports_for_host_and_port] failed to retrieve the target ip"
@@ -93,8 +93,8 @@ function port_mapping_clear_ports_for_host_and_port {
 		echo_std_out "Got ${rule_line_numbers}"
 		return ${rule_line_number_result}
 	fi
-	echo "The rule_line_numbers: ${port_mapping_rule_line_numbers}"
-	for port_mapping_rule_line_number in ${port_mapping_rule_line_numbers[@]} ; do
+	echo "The rule_line_numbers: ${rule_line_numbers}"
+	for port_mapping_rule_line_number in ${rule_line_numbers[@]} ; do
 		# setup the port forwarding
 		local clear_port_forward_result=`cli_execute_command ${port_mapping_lxd_server} "sudo iptables -t nat -D PREROUTING ${port_mapping_rule_line_number}"`
 		local clear_port_forward_result_no=$?
