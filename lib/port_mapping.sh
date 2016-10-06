@@ -93,8 +93,8 @@ function port_mapping_clear_ports_for_host_and_port {
 		echo_std_out "Got ${rule_line_numbers}"
 		return ${rule_line_number_result}
 	fi
-	echo "The rule_line_numbers: ${rule_line_numbers}"
-	for port_mapping_rule_line_number in ${rule_line_numbers[@]} ; do
+	echo "The rule_line_numbers: ${rule_line_numbers:-}"
+	for port_mapping_rule_line_number in ${rule_line_numbers[@]:-} ; do
 		# setup the port forwarding
 		local clear_port_forward_result=`cli_execute_command ${port_mapping_lxd_server} "sudo iptables -t nat -D PREROUTING ${port_mapping_rule_line_number}"`
 		local clear_port_forward_result_no=$?
