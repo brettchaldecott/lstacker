@@ -85,7 +85,7 @@ function port_mapping_clear_ports_for_host_and_port {
 	fi
 
 	# retrieve the line numbers
-	local rule_line_numbers=(`cli_execute_command ${port_mapping_lxd_server} "sudo iptables -t nat --line-numbers -L \| grep DNAT \| grep ${port_mapping_source_port[0]} | cut -d ' ' -f 1"`)
+	local rule_line_numbers=(`cli_execute_command ${port_mapping_lxd_server} "sudo iptables -t nat --line-numbers -L | grep DNAT | grep ${port_mapping_source_port[0]} | cut -d ' ' -f 1"`)
 	local rule_line_number_result=$?
 	if [ ! ${rule_line_number_result} ] ; then
 		echo_std_out "[port_mapping_map_ports_for_host_and_port] failed to retrieve the target ip"
