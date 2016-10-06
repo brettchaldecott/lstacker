@@ -30,10 +30,11 @@ function cli_execute_command {
 	local remote_command=$2
 
 	if [ ${server} == "local" ] ; then
-		echo_log "${remote_command}"
+		#echo_log "${remote_command}"
 		local cli_result=`${remote_command}`
 		local command_result=$?
 		echo "${cli_result}"
+		#echo_log "Command [${remote_command}]=[${cli_result}]"
 		if [ "${IGNORE_RESULTS}" -ne "0" ] && [ ${command_result} -ne 0 ] ; then
 			echo_std_out "[cli_execute_command] Failed to execute the command result"
 			echo_std_out "${remote_command}"
