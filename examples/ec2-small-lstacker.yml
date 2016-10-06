@@ -1,0 +1,170 @@
+lstack:
+  salt:
+    master: salt
+  proxy:
+    state: no
+    http_url: http://172.0.0.84:3128/
+    https_url: http://172.0.0.84:3128/
+  ssh:
+    public_keys: authorized_keys
+    private_key_file: private_key.pem
+    username: ubuntu
+  networks:
+    names:
+      - management
+      - dev
+      - qa
+      - test
+      - prod
+    master_switch_server: lxd1
+    management:
+      network: 192.170
+      domain: roids.example.com
+    dev:
+      network: 192.180
+      domain: dev.example.com
+    qa:
+      network: 192.190
+      domain: qa.example.com
+    test:
+      network: 192.200
+      domain: test.example.com
+    prod:
+      network: 192.210
+      domain: prod.example.com
+  servers:
+    names:
+      - lxd1
+      - lxd2
+    lxd1:
+      type: lxd
+      name: local
+      ip: 172.30.0.107
+      ip_segment: 0
+    lxd2:
+      type: lxd
+      name: lxd2
+      ip: 172.30.0.108
+      ip_segment: 50
+  lxd1:
+    ports:
+      - 8080
+      - 80
+      - 10022
+    8080:
+      container: jump-box
+      target_port: 8080
+      source_port: 8080
+      source_dev: eth0
+    80:
+      container: jump-box
+      target_port: 80
+      source_port: 80
+      source_dev: eth0
+    10022:
+      container: jump-box
+      target_port: 22
+      source_port: 10022
+      source_dev: eth0
+    hosts:
+      - jump-box
+      - jenkins
+      - omd
+    jump_box:
+      host: jump-box
+      networks:
+        - management
+        - dev
+        - qa
+        - test
+        - prod
+      ip_suffix: 10
+      linux_distro: ubuntu
+      distro_version: 16.04
+      lxd_profiles:
+        - docker
+        - default
+      recipies:
+        - ubuntu-update
+        - haproxy
+        - check-mk
+    jenkins:
+      host: jenkins
+      networks:
+        - management
+        - dev
+        - prod
+      ip_suffix: 11
+      linux_distro: ubuntu
+      distro_version: 16.04
+      lxd_profiles:
+        - docker
+        - default
+      recipies:
+        - ubuntu-update
+        - open-jdk8
+        - jenkins
+        - check-mk
+    omd:
+      host: omd 
+      networks:
+        - management
+      ip_suffix: 12
+      linux_distro: ubuntu
+      distro_version: 14.04
+      lxd_profiles:
+        - default
+      recipies:
+        - ubuntu-update
+        - omd
+  lxd2:
+    ports:
+    hosts:
+      - apache
+      - mysql
+      - app-server
+    apache:
+      host: apache
+      networks:
+        - management
+        - prod
+      ip_suffix: 13
+      linux_distro: ubuntu
+      distro_version: 16.04
+      lxd_profiles:
+        - default
+        - docker
+      recipies:
+        - ubuntu-update
+        - apache
+        - check-mk
+    mysql:
+      host: mysql
+      networks:
+        - management
+        - prod
+      ip_suffix: 14
+      linux_distro: ubuntu
+      distro_version: 16.04
+      lxd_profiles:
+        - default
+        - docker
+      recipies:
+        - ubuntu-update
+        - check-mk
+    app-server:
+      host: app-server
+      networks:
+        - management
+        - prod
+      ip_suffix: 15
+      linux_distro: ubuntu
+      distro_version: 16.04
+      lxd_profiles:
+        - default
+        - docker
+      recipies:
+        - ubuntu-update
+        - open-jdk8
+        - check-mk
+
