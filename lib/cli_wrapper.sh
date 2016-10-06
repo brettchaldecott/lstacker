@@ -31,7 +31,7 @@ function cli_execute_command {
 
 	if [ ${server} == "local" ] ; then
 		echo_log "${remote_command}"
-		local cli_result=`"${remote_command}"`
+		local cli_result=`eval ${remote_command}`
 		local command_result=$?
 		echo "${cli_result}"
 		echo_log "Command [${remote_command}]=[${cli_result}]"
