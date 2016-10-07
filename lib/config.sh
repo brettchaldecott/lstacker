@@ -126,7 +126,7 @@ function has_yaml_config_var {
 		config="${config}_${key}"
 	done
 	config=${config}[@]
-	declare -a yamlArray=("${!config}")
+	declare -a yamlArray=("${!config:-}")
 	if [ -z "${yamlArray[@]}" ] ; then
 		return 1
 	fi 
