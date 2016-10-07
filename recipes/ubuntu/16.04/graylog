@@ -1,0 +1,36 @@
+#
+# Copyright 2016-10 brett.chaldecott@gmail.com
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#     http://www.apache.org/licenses/LICENSE-2.0
+# 
+#     Unless required by applicable law or agreed to in writing, software
+#     distributed under the License is distributed on an "AS IS" BASIS,
+#     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#     See the License for the specific language governing permissions and
+#     limitations under the License.
+#
+#
+# install grey log
+#
+sudo update
+sudo apt install apt-transport-https openjdk-8-jre-headless uuid-runtime pwgen -y
+sudo apt install mongodb-server -y
+sudo wget -qO - https://packages.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+echo "deb https://packages.elastic.co/elasticsearch/2.x/debian stable main" | sudo tee -a /etc/apt/sources.list.d/elasticsearch-2.x.list
+sudo apt update
+sudo apt install elasticsearch
+sed -i "\"s/\#cluster.name:.*/cluster.name: graylog/g\"" /etc/elasticsearch/elasticsearch.yml
+sudo /bin/systemctl daemon-reload
+sudo /bin/systemctl enable elasticsearch.service
+sudo /bin/systemctl restart elasticsearch.service
+sudo wget https://packages.graylog2.org/repo/packages/graylog-2.1-repository_latest.deb
+sudo dpkg -i graylog-2.1-repository_latest.deb
+sudo apt-get update
+sudo apt-get install graylog-server
+
+# rest of installation is not complete at this point TODO complete
+
