@@ -20,7 +20,7 @@
 
 # this function is called to register servers
 function lxd_config_register_servers {
-	local servers=(${yml_lstack_servers_names[@]})
+	local servers=${yml_lstack_servers_names[@]}
 	if [ -z "${servers[@]}" ] ; then
 		echo_std_out "Must provide the lstack_server_names configuration"
 		exit -1
@@ -52,7 +52,7 @@ function lxd_config_register_servers {
 			continue
 		fi
 		# loop through the target servers for the management server
-		local targets_servers=(${yml_lstack_servers_names[@]})
+		local targets_servers=${yml_lstack_servers_names[@]}
 		for lxd_config_target_server in ${targets_servers[@]} ; do
 			if [ "${lxd_config_register_server}" == "${lxd_config_target_server}" ] ; then
 				continue
@@ -72,7 +72,7 @@ function lxd_config_register_servers {
 
 # this function will clear all the profiles on the network
 function lxd_config_de_register_servers {
-	local servers=(${yml_lstack_servers_names[@]})
+	local servers=${yml_lstack_servers_names[@]}
 	if [ -z "${servers[@]}" ] ; then
 		echo_std_out "Must provide the lstack_server_names configuration"
 		exit -1
@@ -85,7 +85,7 @@ function lxd_config_de_register_servers {
 			echo_std_out "Failed to retrieve the server name for ${lxd_config_de_register_server}"
 			continue
 		fi
-		local targets_servers=(${yml_lstack_servers_names[@]})
+		local targets_servers=${yml_lstack_servers_names[@]}
 		for lxd_config_target_server in ${targets_servers[@]} ; do
 			if [ "${lxd_config_register_server}" == "${lxd_config_target_server}" ] ; then
 				continue
