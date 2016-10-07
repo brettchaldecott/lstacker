@@ -1,0 +1,660 @@
+lstack:
+  ldap:
+    password: password
+    domain: example.com
+    organisation: example
+  salt:
+    master: salt-master.man.example.com
+  centos:
+    root_password_default: centos
+  proxy:
+    state: yes
+    http_url: http://172.0.0.84:3128/
+    https_url: http://172.0.0.84:3128/
+  ssh:
+    public_keys: public_keys
+    private_key_file: id_rsa
+    username: pocadmin
+  lxd:
+    password: change_me
+  networks:
+    names:
+      - management
+      - dev
+      - qa
+      - test
+      - prod
+    master_switch_server: lxd1
+    management:
+      network: 10.200
+      domain: man.example.com
+    dev:
+      network: 10.201
+      domain: dev.example.com
+    qa:
+      network: 10.202
+      domain: qa.example.com
+    test:
+      network: 10.203
+      domain: test.example.com
+    prod:
+      network: 10.204
+      domain: prod.example.com
+  servers:
+    names:
+      - lxd1
+      - lxd2
+      - lxd3
+      - lxd4
+    lxd1:
+      type: lxd
+      name: local
+      ip: 172.0.0.85
+      ip_segment: 0
+    lxd2:
+      type: lxd
+      name: lxd2
+      ip: 172.0.0.86
+      ip_segment: 50
+    lxd3:
+      type: lxd
+      name: lxd3
+      ip: 172.0.0.87
+      ip_segment: 100
+    lxd4:
+      type: lxd
+      name: lxd4
+      ip: 172.0.0.84
+      ip_segment: 150
+  lxd1:
+    ports:
+      - 8080
+      - 8081
+      - 80
+      - 443
+      - 10022
+      - 5432
+      - 15672
+    8080:
+      container: jump-box
+      target_port: 8080
+      source_port: 8080
+      source_dev: ens160
+    8081:
+      container: jump-box
+      target_port: 8081
+      source_port: 8081
+      source_dev: ens160
+    80:
+      container: jump-box
+      target_port: 80
+      source_port: 80
+      source_dev: ens160
+    443:
+      container: jump-box
+      target_port: 443
+      source_port: 443
+      source_dev: ens160
+    10022:
+      container: jump-box
+      target_port: 22
+      source_port: 10022
+      source_dev: ens160
+    5432:
+      container: jump-box
+      target_port: 5432
+      source_port: 5432
+      source_dev: ens160
+    15672:
+      container: jump-box
+      target_port: 15672
+      source_port: 15672
+      source_dev: ens160
+    hosts:
+      - jump-box
+      - omd
+      - salt-master
+      - jenkins
+      - nexus
+      - sonarqube
+      - webmin
+      - graylog
+      - hadoop1
+    jump_box:
+      host: jump-box
+      networks:
+        - management
+        - dev
+        - qa
+        - test
+        - prod
+      ip_suffix: 10
+      linux_distro: ubuntu
+      distro_version: 16.04
+      lxd_profiles:
+        - default
+      recipies:
+        - ubuntu-update
+        - haproxy
+        - check-mk
+        - salt-minion
+    omd:
+      host: omd
+      networks:
+        - management
+      ip_suffix: 11
+      linux_distro: ubuntu
+      distro_version: 14.04
+      lxd_profiles:
+        - default
+      recipies:
+        - ubuntu-update
+        - omd
+    salt_master:
+      host: salt-master
+      networks:
+        - management
+      ip_suffix: 12
+      linux_distro: ubuntu
+      distro_version: 16.04
+      lxd_profiles:
+        - default
+      recipies:
+        - ubuntu-update
+        - salt-master
+        - check-mk
+    jenkins:
+      host: jenkins
+      networks:
+        - management
+        - dev
+        - qa
+        - prod
+        - test
+      ip_suffix: 13
+      linux_distro: ubuntu
+      distro_version: 16.04
+      lxd_profiles:
+        - default
+      recipies:
+        - ubuntu-update
+        - open-jdk8
+        - jenkins
+        - check-mk
+        - salt-minion
+    nexus:
+      host: nexus
+      networks:
+        - management
+        - dev
+        - qa
+        - prod
+        - test
+      ip_suffix: 14
+      linux_distro: ubuntu
+      distro_version: 16.04
+      lxd_profiles:
+        - default
+      recipies:
+        - ubuntu-update
+        - open-jdk8
+        - nexus
+        - check-mk
+        - salt-minion
+    sonarqube:
+      host: sonarqube
+      networks:
+        - management
+        - dev
+        - qa
+        - prod
+        - test
+      ip_suffix: 15
+      linux_distro: ubuntu
+      distro_version: 16.04
+      lxd_profiles:
+        - default
+      recipies:
+        - ubuntu-update
+        - open-jdk8
+        - postgres
+        - sonarqube
+        - check-mk
+        - salt-minion
+    webmin:
+      host: webmin
+      networks:
+        - management
+        - dev
+        - qa
+        - prod
+        - test
+      ip_suffix: 16
+      linux_distro: ubuntu
+      distro_version: 16.04
+      lxd_profiles:
+        - default
+      recipies:
+        - ubuntu-update
+        - bind9
+        - webmin
+        - check-mk
+        - salt-minion
+    graylog:
+      host: graylog
+      networks:
+        - management
+        - dev
+        - qa
+        - prod
+        - test
+      ip_suffix: 17
+      linux_distro: ubuntu
+      distro_version: 16.04
+      lxd_profiles:
+        - default
+      recipies:
+        - ubuntu-update
+        - check-mk
+        - salt-minion
+        - graylog
+    hadoop1:
+      host: hadoop1
+      networks:
+        - management
+        - test
+      ip_suffix: 50
+      linux_distro: ubuntu
+      distro_version: 16.04
+      lxd_profiles:
+        - default
+      recipies:
+        - ubuntu-update
+        - open-jdk8
+        - check-mk
+        - salt-minion
+  lxd2:
+    hosts:
+      - dev-docker1
+      - dev-docker2
+      - dev-etcd
+      - dev-haproxy
+      - dev-ldap
+      - dev-mail
+      - dev-postgres
+      - dev-rabbit-mq
+      - dev-web1
+      - dev-web2
+      - hadoop2
+    dev_docker1:
+      host: dev-docker1
+      networks:
+        - management
+        - dev
+      ip_suffix: 11
+      linux_distro: ubuntu
+      distro_version: 16.04
+      lxd_profiles:
+        - default
+        - docker
+      recipies:
+        - ubuntu-update
+        - docker
+        - check-mk
+        - salt-minion
+    dev_docker2:
+      host: dev-docker2
+      networks:
+        - management
+        - dev
+      ip_suffix: 12
+      linux_distro: ubuntu
+      distro_version: 16.04
+      lxd_profiles:
+        - default
+        - docker
+      recipies:
+        - ubuntu-update
+        - docker
+        - check-mk
+        - salt-minion
+    dev_etcd:
+      host: dev-etcd
+      networks:
+        - management
+        - dev
+      ip_suffix: 13
+      linux_distro: ubuntu
+      distro_version: 16.04
+      lxd_profiles:
+        - default
+      recipies:
+        - ubuntu-update
+        - etcd
+        - check-mk
+        - salt-minion
+    dev_haproxy:
+      host: dev-haproxy
+      networks:
+        - management
+        - dev
+      ip_suffix: 14
+      linux_distro: ubuntu
+      distro_version: 16.04
+      lxd_profiles:
+        - default
+      recipies:
+        - ubuntu-update
+        - haproxy
+        - check-mk
+        - salt-minion
+    dev_ldap:
+      host: dev-ldap
+      networks:
+        - management
+        - dev
+      ip_suffix: 15
+      linux_distro: ubuntu
+      distro_version: 16.04
+      lxd_profiles:
+        - default
+      recipies:
+        - ubuntu-update
+        - openldap
+        - check-mk
+        - salt-minion
+    dev_mail:
+      host: dev-mail
+      networks:
+        - management
+        - dev
+      ip_suffix: 16
+      linux_distro: ubuntu
+      distro_version: 16.04
+      lxd_profiles:
+        - default
+      recipies:
+        - ubuntu-update
+        - check-mk
+        - salt-minion
+    dev_postgres:
+      host: dev-postgres
+      networks:
+        - management
+        - dev
+      ip_suffix: 17
+      linux_distro: ubuntu
+      distro_version: 16.04
+      lxd_profiles:
+        - default
+      recipies:
+        - ubuntu-update
+        - postgres
+        - check-mk
+        - salt-minion
+    dev_rabbit_mq:
+      host: dev-rabbit-mq
+      networks:
+        - management
+        - dev
+      ip_suffix: 18
+      linux_distro: ubuntu
+      distro_version: 16.04
+      lxd_profiles:
+        - default
+      recipies:
+        - ubuntu-update
+        - rabbit-mq
+        - check-mk
+        - salt-minion
+    dev_web1:
+      host: dev-web1
+      networks:
+        - management
+        - dev
+      ip_suffix: 19
+      linux_distro: ubuntu
+      distro_version: 16.04
+      lxd_profiles:
+        - default
+      recipies:
+        - ubuntu-update
+        - docker
+        - npm
+        - angular-cli
+        - check-mk
+        - salt-minion
+    dev_web2:
+      host: dev-web2
+      networks:
+        - management
+        - dev
+      ip_suffix: 20
+      linux_distro: ubuntu
+      distro_version: 16.04
+      lxd_profiles:
+        - default
+      recipies:
+        - ubuntu-update
+        - docker
+        - npm
+        - angular-cli
+        - check-mk
+        - salt-minion
+    hadoop4:
+      host: hadoop2
+      networks:
+        - management
+        - test
+      ip_suffix: 50
+      linux_distro: ubuntu
+      distro_version: 16.04
+      lxd_profiles:
+        - default
+      recipies:
+        - ubuntu-update
+        - open-jdk8
+        - check-mk
+        - salt-minion
+  lxd3:
+    hosts:
+      - qa-docker1
+      - qa-docker2
+      - qa-etcd
+      - qa-haproxy
+      - qa-ldap
+      - qa-mail
+      - qa-postgres
+      - qa-rabbit-mq
+      - qa-web1
+      - qa-web2
+      - hadoop3
+    qa_docker1:
+      host: qa-docker1
+      networks:
+        - management
+        - qa
+      ip_suffix: 11
+      linux_distro: ubuntu
+      distro_version: 16.04
+      lxd_profiles:
+        - default
+        - docker
+      recipies:
+        - ubuntu-update
+        - docker
+        - check-mk
+        - salt-minion
+    qa_docker2:
+      host: qa-docker2
+      networks:
+        - management
+        - qa
+      ip_suffix: 12
+      linux_distro: ubuntu
+      distro_version: 16.04
+      lxd_profiles:
+        - default
+        - docker
+      recipies:
+        - ubuntu-update
+        - docker
+        - check-mk
+        - salt-minion
+    qa_etcd:
+      host: qa-etcd
+      networks:
+        - management
+        - qa
+      ip_suffix: 13
+      linux_distro: ubuntu
+      distro_version: 16.04
+      lxd_profiles:
+        - default
+      recipies:
+        - ubuntu-update
+        - etcd
+        - check-mk
+        - salt-minion
+    qa_haproxy:
+      host: qa-haproxy
+      networks:
+        - management
+        - qa
+      ip_suffix: 14
+      linux_distro: ubuntu
+      distro_version: 16.04
+      lxd_profiles:
+        - default
+      recipies:
+        - ubuntu-update
+        - haproxy
+        - check-mk
+        - salt-minion
+    qa_ldap:
+      host: qa-ldap
+      networks:
+        - management
+        - qa
+      ip_suffix: 15
+      linux_distro: ubuntu
+      distro_version: 16.04
+      lxd_profiles:
+        - default
+      recipies:
+        - ubuntu-update
+        - openldap
+        - check-mk
+        - salt-minion
+    qa_mail:
+      host: qa-mail
+      networks:
+        - management
+        - qa
+      ip_suffix: 16
+      linux_distro: ubuntu
+      distro_version: 16.04
+      lxd_profiles:
+        - default
+      recipies:
+        - ubuntu-update
+        - check-mk
+        - salt-minion
+    qa_postgres:
+      host: qa-postgres
+      networks:
+        - management
+        - qa
+      ip_suffix: 17
+      linux_distro: ubuntu
+      distro_version: 16.04
+      lxd_profiles:
+        - default
+      recipies:
+        - ubuntu-update
+        - postgres
+        - check-mk
+        - salt-minion
+    qa_rabbit_mq:
+      host: qa-rabbit-mq
+      networks:
+        - management
+        - qa
+      ip_suffix: 18
+      linux_distro: ubuntu
+      distro_version: 16.04
+      lxd_profiles:
+        - default
+      recipies:
+        - ubuntu-update
+        - rabbit-mq
+        - check-mk
+        - salt-minion
+    qa_web1:
+      host: qa-web1
+      networks:
+        - management
+        - qa
+      ip_suffix: 19
+      linux_distro: ubuntu
+      distro_version: 16.04
+      lxd_profiles:
+        - default
+      recipies:
+        - ubuntu-update
+        - docker
+        - npm
+        - angular-cli
+        - check-mk
+        - salt-minion
+    qa_web2:
+      host: qa-web2
+      networks:
+        - management
+        - qa
+      ip_suffix: 20
+      linux_distro: ubuntu
+      distro_version: 16.04
+      lxd_profiles:
+        - default
+      recipies:
+        - ubuntu-update
+        - docker
+        - npm
+        - angular-cli
+        - check-mk
+        - salt-minion
+    hadoop4:
+      host: hadoop2
+      networks:
+        - management
+        - test
+      ip_suffix: 50
+      linux_distro: ubuntu
+      distro_version: 16.04
+      lxd_profiles:
+        - default
+      recipies:
+        - ubuntu-update
+        - open-jdk8
+        - check-mk
+        - salt-minion
+  lxd4:
+    hosts:
+      - hadoop4
+    hadoop4:
+      host: hadoop4
+      networks:
+        - management
+        - test
+      ip_suffix: 50
+      linux_distro: ubuntu
+      distro_version: 16.04
+      lxd_profiles:
+        - default
+      recipies:
+        - ubuntu-update
+        - open-jdk8
+        - check-mk
+        - salt-minion
+
