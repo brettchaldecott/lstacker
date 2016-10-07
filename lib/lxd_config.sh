@@ -87,7 +87,7 @@ function lxd_config_de_register_servers {
 		fi
 		local targets_servers=${yml_lstack_servers_names[@]}
 		for lxd_config_target_server in ${targets_servers[@]} ; do
-			if [ "${lxd_config_register_server}" == "${lxd_config_target_server}" ] ; then
+			if [ "${lxd_config_de_register_server}" == "${lxd_config_target_server}" ] ; then
 				continue
 			fi
 			
