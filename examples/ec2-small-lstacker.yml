@@ -18,19 +18,19 @@ lstack:
       - prod
     master_switch_server: lxd1
     management:
-      network: 192.170
+      network: 10.100
       domain: roids.example.com
     dev:
-      network: 192.180
+      network: 10.101
       domain: dev.example.com
     qa:
-      network: 192.190
+      network: 10.102
       domain: qa.example.com
     test:
-      network: 192.200
+      network: 10.103
       domain: test.example.com
     prod:
-      network: 192.210
+      network: 10.104
       domain: prod.example.com
   servers:
     names:
@@ -152,6 +152,7 @@ lstack:
       recipies:
         - ubuntu-update
         - check-mk
+        - mysql
     app-server:
       host: app-server
       networks:

@@ -108,9 +108,10 @@ function get_yaml_config_var {
 	declare -a yamlArray=("${!config:-}")
 	if [ -z ${yamlArray} ] ; then
 		echo_std_out "Failed to retrieve the configuration value ${config}=${yamlArray[@]}"
-		exit -1
+		exit 1
 	fi 
 	echo "${yamlArray[@]}"
+	return 0
 }
 
 # has yaml configuration
@@ -126,7 +127,7 @@ function has_yaml_config_var {
 	done
 	config=${config}[@]
 	declare -a yamlArray=("${!config}")
-	if [ -z ${yamlArray} ] ; then
+	if [ -z "${yamlArray[@]}" ] ; then
 		return 1
 	fi 
 	return 0

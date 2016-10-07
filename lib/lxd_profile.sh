@@ -82,14 +82,14 @@ function lxd_profile_create_network_profiles {
 		# retrieve the server configuration
 		local yaml_name_var_name="yml_lstack_servers_${network_setup_server}_name"
 		local yaml_name_var=${!yaml_name_var_name}
-		if [ -z yaml_name_var ] ; then
+		if [ -z "${yaml_name_var[@]}" ] ; then
 			echo_std_out "No name information for the server [${network_setup_server}]"
 			exit -1
 		fi
 		local device_number=1
 		local network_names=${yml_lstack_networks_names[@]}
 		for lxd_profile_network in ${network_names[@]} ; do
-			lxd_profile_create_network_profile ${yaml_name_var} ${device_number}
+			lxd_profile_create_network_profile "${yaml_name_var[0]}" ${device_number}
 			((++device_number))
 		done
 	done
@@ -108,14 +108,14 @@ function lxd_profile_clear_network_profiles {
 		# retrieve the server configuration
 		local yaml_name_var_name="yml_lstack_servers_${network_setup_server}_name"
 		local yaml_name_var=${!yaml_name_var_name}
-		if [ -z yaml_name_var ] ; then
+		if [ -z "${yaml_name_var[@]}" ] ; then
 			echo_std_out "No name information for the server [${network_setup_server}]"
 			exit -1
 		fi
 		local device_number=1
 		local network_names=${yml_lstack_networks_names[@]}
 		for lxd_profile_network in ${network_names[@]} ; do
-			lxd_profile_delete_network_profile ${yaml_name_var} ${device_number}
+			lxd_profile_delete_network_profile "${yaml_name_var[0]}" ${device_number}
 			((++device_number))
 		done
 	done

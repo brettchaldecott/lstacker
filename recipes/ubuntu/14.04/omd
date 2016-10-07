@@ -21,3 +21,4 @@ DEBIAN_FRONTEND=noninteractive dudo dpkg -i omd-1.31.20160713.trusty.amd64.deb
 DEBIAN_FRONTEND=noninteractive sudo apt-get -f install -y
 sudo dpkg -i omd-1.31.20160713.trusty.amd64.deb
 sudo omd create lstacker
+sudo omd start lstacker

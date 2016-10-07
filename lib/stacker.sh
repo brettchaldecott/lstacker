@@ -26,6 +26,9 @@ function stacker_build_stack {
 	# setp the network
 	network_setup_network
 
+	# register the servers
+	lxd_config_register_servers
+
 	# setup the profiles
 	lxd_profile_create_network_profiles
 
@@ -58,6 +61,9 @@ function stacker_clear_stack {
 
 	# clear the network pfofiles
 	lxd_profile_clear_network_profiles
+
+	# register the servers
+	lxd_config_de_register_servers
 
 	# clear the bridge network
 	network_clear_network
