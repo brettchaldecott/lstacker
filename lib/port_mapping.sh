@@ -42,7 +42,7 @@ function port_mapping_map_ports_for_host_and_port {
 	fi
 
 	# retrieve the target ip for the port mapping
-	local target_ip=`cli_execute_command ${port_mapping_lxd_server} "lxc list ${port_mapping_container[0]} -c 4 | grep eth0 | cut -d ' ' -f 2"`
+	local target_ip=`cli_execute_command ${port_mapping_lxd_server} "sudo lxc list ${port_mapping_container[0]} -c 4 | grep eth0 | cut -d ' ' -f 2"`
 	local target_ip_result=$?
 	if [ ! ${target_ip_result} ] ; then
 		echo_std_out "[port_mapping_map_ports_for_host_and_port] failed to retrieve the target ip"
