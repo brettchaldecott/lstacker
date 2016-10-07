@@ -1,53 +1,48 @@
 <!DOCTYPE html>
 <html>
+
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <title>Lstacker by brettchaldecott</title>
+    <meta name="description" content="Lstacker : A virtual network infrastructure builder.">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Lstacker</title>
   </head>
 
   <body>
-    <div id="container">
-      <div class="inner">
 
-        <header>
-          <h1>Lstacker</h1>
-          <h2>A virtual network infrastructure builder.</h2>
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/brettchaldecott/lstacker">View on GitHub</a>
+
+          <h1 id="project_title">Lstacker</h1>
+          <h2 id="project_tagline">A virtual network infrastructure builder.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/brettchaldecott/lstacker/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/brettchaldecott/lstacker/tarball/master">Download this project as a tar.gz file</a>
+            </section>
         </header>
+    </div>
 
-        <section id="downloads" class="clearfix">
-          <a href="https://github.com/brettchaldecott/lstacker/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
-          <a href="https://github.com/brettchaldecott/lstacker/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
-          <a href="https://github.com/brettchaldecott/lstacker" id="view-on-github" class="button"><span>View on GitHub</span></a>
-        </section>
-
-        <hr>
-
-        <section id="main_content">
-          <h1>
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
 <a id="lstacker" class="anchor" href="#lstacker" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>LStacker</h1>
 
-<p>The LStacker project is a virtual infrastructure builder. It builds a virtual container based network on top of the infrastructure supplied to it. Using this approach enables an organisation to quickly build its infrastructure on minimul hardware, in and out of the cloud. Thus maximizing investement.</p>
-
-<h2>
-<a id="update" class="anchor" href="#update" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Update</h2>
-
-<p>The container creation and destroy commands have now been tested and work correctly, I am now testing the network an profile creation processes. When this process is complete iwill be possible to stack an entire network matching your requirements.</p>
+<p>The LStacker project is a virtual network and infrastructure builder. It builds a virtual container based network on top of the infrastructure supplied to it. Using this approach enables an organisation to quickly build infrastructure on minimul hardware, in and out of the cloud. Thus maximizing investement.</p>
 
 <h2>
 <a id="approach" class="anchor" href="#approach" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Approach</h2>
 
-<p>LStacker is designed to use a simple build and deploy process and provides the following:</p>
+<p>LStacker is designed to use a simple build approach to infrastructure setup as detailed below:</p>
 
 <ul>
-<li>A simple Yaml configuration file is used to define the network and server infrastructure.</li>
+<li>A simple Yaml configuration file is used to define the network and server infrastructure that will be built.</li>
 <li>Infrasture is built on top of simple vanilla VM's or Cloud instances. And can easily be rebuilt at any stage. <a href="http://www.ubuntu.com/">Ubuntu</a> 16.04 is a requirement at present.</li>
 <li>
 <a href="https://linuxcontainers.org/lxd/">LXD</a> is used to build out the server container infrastucture.</li>
@@ -64,8 +59,10 @@
 <li>Production network: A network for production purposes.</li>
 </ul>
 </li>
-<li>A jump-box is built as a means to access the virtual network. Use <a href="http://sshuttle.readthedocs.io/">sshuttle</a> to setup a VPN like connection into the jump-box and then access all the virtual infrastructure as if you were on the network. Multiple can be built if horizontal loading within the network is a requirement.</li>
-<li>At present production instances can be exposed by port mapping onto a reverse proxy like haproxy. This is a recommended service for the jump box.</li>
+<li>A jump-box is built as a means to access the virtual network. Use <a href="http://sshuttle.readthedocs.io/">sshuttle</a> to setup a VPN like connection into the jump-box and then access all the virtual infrastructure as if you were on the network. Multiple jump-boxes can be built if horizontal loading within the network is a requirement.</li>
+<li>Production instances can be exposed through the jump-box by configuring port mappings and haproxy.</li>
+<li>Recipes are used to build the containers and custom recipies can easily be written and executed. This means server infrastructure can be built to match your requirements.</li>
+<li>A base set of recipies are supplied; they include jenkins, mysql, postgres, apache, haproxy, salt, omd etc.</li>
 </ul>
 
 <h2>
@@ -75,27 +72,37 @@
 
 <ol>
 <li>Install vanilla version of <a href="http://www.ubuntu.com/download/server">Ubuntu</a> 16.04 onto the target virtual machines or cloud instances.</li>
-<li>Ear mark a virtual machine or instance as the master server and setup ssh access from it to the other instances.</li>
+<li>Ear mark a virtual machine or instance as the master server and setup ssh key based access from it to the other instances.</li>
 <li>Clone this project and add it to the PATH environment variable on the master server.</li>
+</ol>
+
+<h2>
+<a id="system-setup" class="anchor" href="#system-setup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>System setup</h2>
+
+<p>Each VM or cloud instance needs to be updated as follows.</p>
+
+<pre><code>sudo apt update
+sudo apt upgrade -y
+sudo apt install lxd openvswitch-switch -y
+sudo reboot
+</code></pre>
+
+<h2>
+<a id="hostname-configuration" class="anchor" href="#hostname-configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Hostname configuration</h2>
+
+<p>Make sure the hosts names are configured correctly. This is not a requirement but will reduce the amount of warnings that will come to the console. To do this follow these steps:</p>
+
+<ol>
+<li>Edit the host name file with your editor of choice for example <code>sudo vi /etc/hostname</code>. Set the hostname to </li>
+<li>Edit the hosts file and add the hostname of choice to the loop back ip entra. <code>sudo vi /etc/hosts</code> </li>
+<li>Set the hostname for the running instance by running the host command. <code>sudo hostname &lt;host name&gt;</code>
+</li>
 </ol>
 
 <h2>
 <a id="lxd-setup" class="anchor" href="#lxd-setup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>LXD Setup</h2>
 
-<p>LXD/LXC has to be configured appropriatly.</p>
-
-<ol>
-<li>Init LXD using the <code>lxd init</code> command. This has to be peformed on all boxes. Select the configuration that makes the most sense for your environment. I recommend running on a ZFS pool, if this is not available than a standard dir backend will work fine.</li>
-<li>
-<p>The management port has to be exposed and the trust password set on all lxd instances.</p>
-
-<pre><code>sudo lxc config set core.https_address [::]
-sudo lxc config set core.trust_password some-password
-</code></pre>
-</li>
-<li><p>All LXD servers have to know about each other. This requires they are registered as remotes with each other.
-<code>sudo lxc remote add lxd1 &lt;ip address or DNS of remote service&gt;</code></p></li>
-</ol>
+<p>LXD/LXC has to be configured appropriatly. This requires running the <code>lxd init</code> command. This has to be peformed on all boxes. Select the configuration that makes the most sense for your environment. I recommend running on a ZFS pool, if this is not available than a standard dir backend will work fine.</p>
 
 <h2>
 <a id="openvswitch" class="anchor" href="#openvswitch" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Openvswitch</h2>
@@ -114,15 +121,65 @@ sudo lxc config set core.trust_password some-password
 <code>lstacker stack</code>
 </li>
 </ol>
-        </section>
 
-        <footer>
-          Lstacker is maintained by <a href="https://github.com/brettchaldecott">brettchaldecott</a><br>
-          This page was generated by <a href="https://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
-        </footer>
+<h2>
+<a id="example-steps" class="anchor" href="#example-steps" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example steps</h2>
 
-        
-      </div>
+<p>An example of what needs to be one to use LStacker correctly.</p>
+
+<pre><code>git clone https://github.com/brettchaldecott/lstacker.git
+PATH=$PATH:`pwd`/lstacker
+export PATH
+mkdir lstacker-context
+cd lstacker-context
+cp ../lstacker/examples/ec2-small-lstacker.yml lstacker.yml
+vi lstacker.yaml
+# Edit the file to match your build requirements
+.
+.
+# put the private key refered to in the lstacker.yaml file in the lstacker-context directory
+cp "private key"
+.
+# build a public key file containing all the keys you wish to access the infrastructure
+# it is also refered to in the lstacker.yml file
+.
+# run the lstacker command
+lstacker stack
+</code></pre>
+
+<p>To clean up simply run the unstack command</p>
+
+<pre><code>lstacker unstack
+</code></pre>
+
+<h2>
+<a id="access-the-network" class="anchor" href="#access-the-network" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Access the network</h2>
+
+<p>Once a network has been built it can be accessed by sshing directly to the jump-box or more efficently by using <a href="http://sshuttle.readthedocs.io/">sshuttle</a>.</p>
+
+<p>To ssh directly to the jump box use the following command:</p>
+
+<pre><code>ssh -i private_key_file -p 10022 ubuntu@hostname_or_ip_of_master
+</code></pre>
+
+<p>To setup and use sshuttle use the following command</p>
+
+<pre><code>sshuttle -r ubuntu@hostname_or_ip_of_master 10.0.0.0/8 -e "ssh -p 10022 -i key_file"
+</code></pre>
+
+<p>Once the sshuttle connection is established you will be able to ssh directly to any of the severs in the network you have built. For ip address or hostname information refer to the hosts file directory within the lstacker-context directory. This contains the hostnames and ip addresses for all servers built within the infrastructure.</p>
+      </section>
     </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Lstacker maintained by <a href="https://github.com/brettchaldecott">brettchaldecott</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
   </body>
 </html>
