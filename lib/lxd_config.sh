@@ -20,7 +20,7 @@
 
 # this function is called to register servers
 function lxd_config_register_servers {
-	local servers=${yml_lstack_servers_names[@]}
+	local servers=(${yml_lstack_servers_names[@]})
 	if [ -z "${servers[@]}" ] ; then
 		echo_std_out "Must provide the lstack_server_names configuration"
 		exit -1
@@ -72,7 +72,7 @@ function lxd_config_register_servers {
 
 # this function will clear all the profiles on the network
 function lxd_config_de_register_servers {
-	local servers=${yml_lstack_servers_names[@]}
+	local servers=(${yml_lstack_servers_names[@]})
 	if [ -z "${servers[@]}" ] ; then
 		echo_std_out "Must provide the lstack_server_names configuration"
 		exit -1
