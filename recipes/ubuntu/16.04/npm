@@ -17,5 +17,5 @@
 # lstacker recipe file for the salt-minion
 #
 sudo apt update
-sudo apt install npm nodejs-legacy
+sudo apt install npm nodejs-legacy -y
 sudo npm install -g npm
