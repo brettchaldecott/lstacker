@@ -25,7 +25,7 @@ BRIDGE_NAME="br-ls-gre0"
 IGNORE_RESULTS=1
 LSTACKER_CONTEXT=`pwd`
 ADD_BY_MESSAGE="Added by Lstacker"
-CONTAINER_WAIT_DELAY=5
+CONTAINER_WAIT_DELAY=15
 HOSTS_DIRECTORY="${LSTACKER_CONTEXT}/hosts"
 
 # setting the mtu size smaller than the tradition 1500
