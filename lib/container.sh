@@ -59,7 +59,9 @@ function container_create_container {
 	# create the container
 	lxd_create_container ${container_linux_distro[0]} ${container_distro_version[0]} ${container_lxd_server} ${container_hostname} container_profiles[@]
 
+	echo_log "Sleeping ${lxd_host}:${container} : sleep ${CONTAINER_WAIT_DELAY}"
 	sleep "${CONTAINER_WAIT_DELAY}"
+	echo_log "After sleeping ${lxd_host}:${container} : sleep ${CONTAINER_WAIT_DELAY}"
 
 	# setup the networking
 	local eth_dev_count=1
