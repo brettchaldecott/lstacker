@@ -20,5 +20,5 @@
 wget --no-check-certificate -q -O - https://pkg.jenkins.io/debian/jenkins-ci.org.key | sudo apt-key add -
 echo 'deb http://pkg.jenkins.io/debian-stable binary/' \| tee /etc/apt/sources.list.d/jenkins.list
 sudo apt update
-sudo apt install --allow-unauthenticated -y jenkins
+sudo apt install --allow-unauthenticated jenkins -y
 
