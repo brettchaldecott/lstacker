@@ -1,6 +1,6 @@
 # LStacker
 
-The LStacker project is a virtual network and infrastructure builder. It builds a virtual container based network on top of the infrastructure supplied to it. Using this approach enables an organisation to quickly build infrastructure on minimul hardware, in and out of the cloud. Thus maximizing investement.
+The LStacker project is a network and infrastructure builder. It builds a container based network on top of the infrastructure supplied to it. Using this approach enables an organisation to quickly build infrastructure on minimul hardware, in and out of the cloud. Thus maximizing investement.
 
 ## Approach
 LStacker is designed to use a simple build approach to infrastructure setup as detailed below:
