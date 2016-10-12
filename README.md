@@ -21,7 +21,7 @@ LStacker is designed to use a simple build approach to infrastructure setup as d
 * Recipes are used to build the containers and custom recipies can easily be written and executed. This means server infrastructure can be built to match your requirements.
 * A base set of recipies are supplied; they include jenkins, mysql, postgres, apache, haproxy, salt, omd etc.
 
-## Instastructure
+## Infrastructure
 I recommend running on a minum of 4 either virtual machines or cloud instances. These you can allocate as you see fit in your Lstacker build file. If you are worried about the costs then use micro instances on EC2 will work, but more may have to be allocated. This will not cause a problem with the build process. If cost is not a factor than I recommend a medium instance or higher.
 
 1. Install vanilla version of [Ubuntu](http://www.ubuntu.com/download/server) 16.04 onto the target virtual machines or cloud instances.

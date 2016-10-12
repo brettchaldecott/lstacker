@@ -16,8 +16,9 @@
 #
 # lstacker recipe file for installing apache
 #
-wget https://sonarsource.bintray.com/Distribution/sonarqube/sonarqube-6.0.zip
+sudo wget https://sonarsource.bintray.com/Distribution/sonarqube/sonarqube-6.0.zip
 mkdir -p /opt/
+sudo apt install unzip -y
 unzip sonarqube-6.0.zip -d /opt
 ln -s /opt/sonarqube-6.0 /opt/sonarqube
 
