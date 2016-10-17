@@ -19,6 +19,10 @@ function hosts_add_host {
 		mkdir ${HOSTS_DIRECTORY}
 	fi
 
+	# remove lines from file
+	sed -i "/^.*${fqdn}/d" "${HOSTS_DIRECTORY}/${container_network}_hosts"
+	sed -i "/^.*${fqdn}/d" "${HOSTS_DIRECTORY}/hosts"
+
 	# create the container network file
 	printf "%s\t%s\n" "${ip_address}" "${fqdn}" | tee -a "${HOSTS_DIRECTORY}/${container_network}_hosts"
 	printf "%s\t%s\n" "${ip_address}" "${fqdn}" | tee -a "${HOSTS_DIRECTORY}/hosts"
