@@ -89,7 +89,7 @@ lstacker unstack
 ```
 
 ## Access the network
-Once a network has been built it can be access by sshing directly to the jump-box or more efficently by using [sshuttle](http://sshuttle.readthedocs.io/).
+Once a network has been built it can be accessed by sshing directly to the jump-box or more efficently by using [sshuttle](http://sshuttle.readthedocs.io/).
 
 To ssh directly to the jump box use the following command:
 ```
