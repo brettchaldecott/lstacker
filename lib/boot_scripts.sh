@@ -102,7 +102,7 @@ function boot_scripts_clear_lstacker {
 	cli_execute_command "${yaml_name_var}" "sudo rm -f ${LSTACKER_UBUNTU_INITD_SCRIPT}"
 
 	# remove the startup directory
-	cli_execute_command "${yaml_name_var}" "rm -rf ${LSTACKER_STARTUP_DIR}"
+	cli_execute_command "${yaml_name_var}" "sudo rm -rf ${LSTACKER_STARTUP_DIR}"
 }
 
 function boot_scripts_add_start_command {
