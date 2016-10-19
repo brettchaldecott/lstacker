@@ -162,7 +162,7 @@ function boot_scripts_setup_servers {
 		exit -1
 	fi
 
-	# setup lxc profiles for networks
+	# setup lstacker startup scripts
 	for boot_scripts_setup_server_name in ${servers[@]} ; do
 		echo "Setup the startup scripts on ${boot_scripts_setup_server_name}"
 		boot_scripts_setup_lstacker ${boot_scripts_setup_server_name}
@@ -183,8 +183,8 @@ function boot_scripts_clear_servers {
 		exit -1
 	fi
 
-	# setup lxc profiles for networks
-	for network_setup_server in ${servers[@]} ; do
+	# clear the lxc start scripts
+	for boot_scripts_setup_server_name in ${servers[@]} ; do
 		echo "Clear the startup scripts on ${boot_scripts_setup_server_name}"
 		boot_scripts_clear_lstacker ${boot_scripts_setup_server_name}
 		echo "Finished clearing th startup scripts on  ${boot_scripts_setup_server_name}"
