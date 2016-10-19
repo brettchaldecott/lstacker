@@ -147,8 +147,7 @@ function boot_scripts_add_stop_command {
 		fi
 	fi
 
-	cli_execute_command_with_input "${yaml_name_var}" "sudo tee -a ${LSTACKER_STARTUP_FILE}" "${stop_command}"
-
+	cli_execute_command_with_input "${yaml_name_var}" "sudo tee -a ${LSTACKER_SHUTDOWN_FILE}" "${stop_command}"
 }
 
 
