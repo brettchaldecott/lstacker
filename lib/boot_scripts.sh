@@ -21,7 +21,7 @@
 function boot_scripts_setup_lstacker {
 	# validate import
 	if [ "$#" -ne 1 ]; then
-		echo_std_out "[boot_script_setup_lstacker]Illegal number of parameters"
+		echo_std_out "[boot_scripts_setup_lstacker]Illegal number of parameters"
 		echo_std_out "arguments <host>"
 		exit -1
 	fi
@@ -164,10 +164,10 @@ function boot_scripts_setup_servers {
 	fi
 
 	# setup lxc profiles for networks
-	for boot_script_setup_server_name in ${servers[@]} ; do
-		echo "Setup the startup scripts on ${boot_script_setup_server_name}"
-		boot_script_setup_lstacker ${boot_script_setup_server_name}
-		echo "Finished setting up the startup scripts on  ${boot_script_setup_server_name}"
+	for boot_scripts_setup_server_name in ${servers[@]} ; do
+		echo "Setup the startup scripts on ${boot_scripts_setup_server_name}"
+		boot_scripts_setup_lstacker ${boot_scripts_setup_server_name}
+		echo "Finished setting up the startup scripts on  ${boot_scripts_setup_server_name}"
 	done
 	echo_std_out "Setup boot scripts"
 }
@@ -186,9 +186,9 @@ function boot_scripts_clear_servers {
 
 	# setup lxc profiles for networks
 	for network_setup_server in ${servers[@]} ; do
-		echo "Clear the startup scripts on ${boot_script_setup_server_name}"
-		boot_script_clear_lstacker ${boot_script_setup_server_name}
-		echo "Finished clearing th startup scripts on  ${boot_script_setup_server_name}"
+		echo "Clear the startup scripts on ${boot_scripts_setup_server_name}"
+		boot_scripts_clear_lstacker ${boot_scripts_setup_server_name}
+		echo "Finished clearing th startup scripts on  ${boot_scripts_setup_server_name}"
 	done
 	echo_std_out "Cleared boot scripts from servers"
 }
