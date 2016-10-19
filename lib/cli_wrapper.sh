@@ -94,3 +94,41 @@ function cli_execute_command_with_input {
 
 }
 
+function cli_execute_command_with_file {
+	# validate import
+	if [ "$#" -ne 3 ]; then
+		echo_std_out "[cli_execute_command_with_file]Illegal number of parameters"
+		echo_std_out "arguments <server> <remote_command> <file_path>"
+		exit -1
+	fi
+
+	local server=$1
+	local remote_command=$2
+	local file_path=$3
+
+	if [ ${server} == "local" ] ; then
+		echo_log "cat ${file_path} | eval ${remote_command}"
+		local cli_result=`cat "${file_path}" | eval ${remote_command}`
+		local command_result=$?
+		echo "${cli_result}"
+		if [ "${IGNORE_RESULTS}" -ne "0" ] && [ ${command_result} -ne 0 ] ; then
+			echo_std_out "[cli_execute_command_with_file] Failed to execute the command result"
+			echo_std_out "cat \"${file_path}\" | eval ${remote_command}"
+			exit -1
+		fi
+		return ${command_result}
+	else
+		local yaml_ip_var_name="yml_lstack_servers_${server}_ip"
+		local yaml_ip_var=${!yaml_ip_var_name}
+		if [ -z "${yaml_ip_var}" ] ; then
+			echo_std_out "[cli_execute_command_with_file] failed to retrieve the ip information for ${server}"
+			exit -1
+		fi
+		local ssh_result=`ssh_execute_command_with_file "${yaml_ip_var}" "${remote_command}" "${file_path}"`
+		local command_result=$?
+		echo "${ssh_result}"
+		return ${command_result}
+	fi
+
+}
+

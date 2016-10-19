@@ -26,14 +26,17 @@ function openvswitch_create_bridge {
 		echo_std_out "arguments <host> <remote_ips>"
 		exit -1
 	fi
-	
+
 	local host=$1
 	declare -a openvswitch_ip_array=("${!2}")
-	
+
 	cli_execute_command "${host}" "sudo ovs-vsctl --may-exist add-br ${BRIDGE_NAME}"
 	local eth_dev_count=0
 	for openvswitch_ip in ${openvswitch_ip_array[@]} ; do
 		cli_execute_command "${host}" "sudo ovs-vsctl --may-exist add-port ${BRIDGE_NAME} gre-${eth_dev_count} -- set interface gre-${eth_dev_count} type=gre options:remote_ip=${openvswitch_ip}"
+		boot_scripts_add_start_command "${host}" "sudo ovs-vsctl --may-exist add-port ${BRIDGE_NAME} gre-${eth_dev_count} -- set interface gre-${eth_dev_count} type=gre options:remote_ip=${openvswitch_ip}"
+		boot_scripts_add_stop_command "${host}" "sudo ovs-vsctl --if-exist del-port ${BRIDGE_NAME} gre-${eth_dev_count}"
+
 		((++eth_dev_count))
 	done
 	# enable spanning tree. this is critical
@@ -54,7 +57,7 @@ function openvswitch_destroy_bridge {
 	local host=$1
 
 	cli_execute_command "${host}" "sudo ovs-vsctl --if-exist del-br ${BRIDGE_NAME}"
-	
+
 }
 
 

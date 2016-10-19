@@ -61,6 +61,7 @@ function port_mapping_map_ports_for_host_and_port {
 		return ${target_ip_result}
 
 	fi
+	boot_scripts_add_start_command "${port_mapping_lxd_server}" "sudo iptables -t nat -A PREROUTING -i ${port_mapping_source_dev[0]} -p tcp --dport ${port_mapping_source_port[0]} -j DNAT --to ${target_ip}:${port_mapping_target_port}"
 }
 
 # clear the port mapping for a host and port

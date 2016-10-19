@@ -28,6 +28,14 @@ ADD_BY_MESSAGE="Added by Lstacker"
 CONTAINER_WAIT_DELAY=120
 HOSTS_DIRECTORY="${LSTACKER_CONTEXT}/hosts"
 
+# startup scripts
+LSTACKER_STARTUP_DIR="/etc/lstacker"
+LSTACKER_INIT_SCRIPT="/etc/init.d/lstacker"
+LSTACKER_STARTUP_FILE="${LSTACKER_STARTUP_DIR}/startup.sh"
+LSTACKER_SHUTDOWN_FILE="${LSTACKER_STARTUP_DIR}/shutdown.sh"
+LSTACKER_UBUNTU_START_TEMPLATE="${LS_BASE_DIR}/templates/ubuntu/lstacker"
+LSTACKER_UBUNTU_INITD_SCRIPT="/etc/init.d/lstacker"
+
 # setting the mtu size smaller than the tradition 1500
 # in order to prevent packet fragmentation as GRE and VxLAN networks
 # add headers to each packet.

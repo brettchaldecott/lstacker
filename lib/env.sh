@@ -40,4 +40,5 @@ set -u
 . ${LS_BASE_DIR}/lib/lxd_config.sh
 . ${LS_BASE_DIR}/lib/lxd_profile.sh
 . ${LS_BASE_DIR}/lib/port_mapping.sh
+. ${LS_BASE_DIR}/lib/boot_scripts.sh
 

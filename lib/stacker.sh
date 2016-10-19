@@ -22,7 +22,10 @@
 # this function is responsible for building a stack
 function stacker_build_stack {
 	echo_std_out "Build a stack"
-	
+
+	# setup the startup scripts
+	boot_scripts_setup_servers
+
 	# setp the network
 	network_setup_network
 
@@ -67,6 +70,9 @@ function stacker_clear_stack {
 
 	# clear the bridge network
 	network_clear_network
+
+	# clear the startup scripts
+	boot_scripts_clear_servers
 
 	echo "Finished clearing the stack"
 

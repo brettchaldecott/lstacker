@@ -93,7 +93,7 @@ function ssh_execute_command_with_file {
 	local ssh_user=${yml_lstack_ssh_username[0]}
 	ssh_check_key_file ${key_file}
 	ssh_check_username ${ssh_user}
-	
+
 	echo_log "cat \"${input_file}\" | ssh -i ${key_file} ${ssh_user}\@${server} \"${remote_command}\""
 	local ssh_result=`cat "${input_file}" | ssh -i ${key_file} ${ssh_user}\@${server} "${remote_command}"`
 	local command_result=$?
