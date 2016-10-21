@@ -144,7 +144,7 @@ function omd_setup_setup_monitoring {
 
 function omd_setup_clear_monitoring {
 	# create the omd directory
-	if [ -d ${OMD_DIRECTORY}] ; then
+	if [ -d ${OMD_DIRECTORY} ] ; then
 		rm -rf ${OMD_DIRECTORY}
 	fi
 }
