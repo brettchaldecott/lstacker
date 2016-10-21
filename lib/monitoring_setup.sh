@@ -20,7 +20,7 @@
 # import the alternativer monitoring implementations
 . ${LS_BASE_DIR}/lib/omd_setup.sh
 
-function monitoring_scripts_setup_monitoring {
+function monitoring_setup_setup_monitoring {
 	if [ -z "${yml_lstack_monitoring_type:-}" ] ; then
 		echo_log "There is no monitoring"
 		return 0
@@ -34,7 +34,7 @@ function monitoring_scripts_setup_monitoring {
 }
 
 # clear the monitoring
-function monitoring_scripts_clear_monitoring {
+function monitoring_setup_clear_monitoring {
 	if [ -z "${yml_monitoring_type}" ] ; then
 		echo_log "There is no monitoring"
 		return 0
