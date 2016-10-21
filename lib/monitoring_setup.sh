@@ -35,11 +35,11 @@ function monitoring_setup_setup_monitoring {
 
 # clear the monitoring
 function monitoring_setup_clear_monitoring {
-	if [ -z "${yml_monitoring_type}" ] ; then
+	if [ -z "${yml_lstack_monitoring_type:-}" ] ; then
 		echo_log "There is no monitoring"
 		return 0
 	fi
-	local monitor_type=${yml_monitoring_type[0]}
+	local monitor_type=${yml_lstack_monitoring_type[0]}
 
 	if [ "${monitor_type}" == "omd" ] ; then
 		omd_setup_clear_monitoring
