@@ -9,6 +9,8 @@ lstack:
     public_keys: authorized_keys
     private_key_file: private_key.pem
     username: ubuntu
+  lxd:
+    password: change_me
   monitoring:
     type: omd
     network: management
