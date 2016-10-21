@@ -28,7 +28,7 @@ function monitoring_setup_setup_monitoring {
 	local monitor_type=${yml_lstack_monitoring_type[0]}
 
 	if [ "${monitor_type}" == "omd" ] ; then
-		omd_setup_setup_monitoring "${host}" "${container}" "${network}"
+		omd_setup_setup_monitoring
 	fi
 
 }
