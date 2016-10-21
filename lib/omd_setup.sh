@@ -59,7 +59,7 @@ function omd_setup_create_wato_file {
 		echo_std_out "arguments <lxd_host> <container> <network>"
 		exit -1
 	fi
-	local lxd_host=$1
+	local host=$1
 	local container=$2
 	local network=$3
 
@@ -130,7 +130,7 @@ function omd_setup_setup_monitoring {
 		exit -1
 	fi
 
-	omd_setup_create_wato_file "${lxd_host}" "${container}" "${network}"
+	omd_setup_create_wato_file "${host}" "${container}" "${network}"
 
 	# create the wato network folder and copy the files into place
 	local wato_remote_directory="/omd/sites/${omd_name}/etc/check_mk/conf.d/wato/${network}"
