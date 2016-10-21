@@ -64,8 +64,8 @@ function omd_setup_create_wato_file {
 	local network=$3
 
 	# create the omd directory
-	if [ ! -d ${OMD_DIRECTORY}] ; then
-		mkdir -f ${OMD_DIRECTORY}
+	if [ ! -d ${OMD_DIRECTORY} ] ; then
+		mkdir -p ${OMD_DIRECTORY}
 	fi
 
 
