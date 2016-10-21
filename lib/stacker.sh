@@ -44,6 +44,9 @@ function stacker_build_stack {
 	# setup the port forwarding
 	port_mapping_map_ports
 
+	# setup monitoring
+	monitoring_scripts_setup_monitoring
+
 	# set the hosts information per network
 	echo_std_out "Finished building stack"
 }
@@ -52,6 +55,9 @@ function stacker_build_stack {
 # this function is responsible for clearing up a stack
 function stacker_clear_stack {
 	echo "Clear a stack"
+
+	# clear the port mapping
+	monitoring_scripts_clear_monitoring
 
 	# clear the port mapping
 	port_mapping_clear_ports

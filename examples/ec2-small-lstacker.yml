@@ -9,6 +9,12 @@ lstack:
     public_keys: authorized_keys
     private_key_file: private_key.pem
     username: ubuntu
+  monitoring:
+    type: omd
+    network: management
+    server: lxd1
+    container: omd
+    name: lstacker
   networks:
     names:
       - management
@@ -106,7 +112,7 @@ lstack:
         - jenkins
         - check-mk
     omd:
-      host: omd 
+      host: omd
       networks:
         - management
       ip_suffix: 12

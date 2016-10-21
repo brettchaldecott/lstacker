@@ -41,4 +41,5 @@ set -u
 . ${LS_BASE_DIR}/lib/lxd_profile.sh
 . ${LS_BASE_DIR}/lib/port_mapping.sh
 . ${LS_BASE_DIR}/lib/boot_scripts.sh
+. ${LS_BASE_DIR}/lib/monitoring_scripts.sh
 

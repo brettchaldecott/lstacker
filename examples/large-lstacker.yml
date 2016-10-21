@@ -17,6 +17,12 @@ lstack:
     username: pocadmin
   lxd:
     password: change_me
+  monitoring:
+    type: omd
+    network: management
+    server: lxd1
+    container: omd
+    name: lstacker
   networks:
     names:
       - management

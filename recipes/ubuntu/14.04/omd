@@ -20,5 +20,5 @@ echo 'mysql-server mysql-server/root_password_again password change_me' \| sudo 
 sudo dpkg -i omd-1.31.20160713.trusty.amd64.deb
 sudo apt-get -f install -y
 sudo dpkg -i omd-1.31.20160713.trusty.amd64.deb
-sudo omd create lstacker
-sudo omd start lstacker
+sudo omd create ${yml_lstack_monitoring_name[0]}
+sudo omd start ${yml_lstack_monitoring_name[0]}
