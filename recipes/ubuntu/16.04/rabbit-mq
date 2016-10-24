@@ -17,7 +17,7 @@
 # lstacker recipe file for rabbit-mq its install rabbit mq and add a new admin user
 #
 echo 'deb http://www.rabbitmq.com/debian/ testing main' \| sudo tee /etc/apt/sources.list.d/rabbitmq.list
-wget --no-check-certificate -O- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc \| sudo apt-key add -
+sudo wget --no-check-certificate -O- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc \| sudo apt-key add -
 sudo apt update
 sudo apt install -y rabbitmq-server
 sudo rabbitmq-plugins enable rabbitmq_management
