@@ -132,12 +132,20 @@ function omd_setup_setup_monitoring {
 
 	omd_setup_create_wato_file "${host}" "${container}" "${network}"
 
+	# convert host name to lxd mapped name
+	local yaml_name_var_name="yml_lstack_servers_${host}_name"
+	local yaml_name_var=${!yaml_name_var_name}
+	if [ -z ${yaml_name_var} ] ; then
+		echo_std_out "No name information for the server [${host}]"
+		exit -1
+	fi
+
 	# create the wato network folder and copy the files into place
 	local wato_remote_directory="/omd/sites/${omd_name}/etc/check_mk/conf.d/wato/${network}"
-	lxd_execute_command "${host}" "${container}" "mkdir -p ${wato_remote_directory}"
-	lxd_file_copy "${host}" "${container}" "${OMD_WATO_FILE}" "${wato_remote_directory}/.wato"
-	lxd_file_copy "${host}" "${container}" "${OMD_WATO_HOST_FILE}" "${wato_remote_directory}/hosts.mk"
-	lxd_execute_command "${host}" "${container}" "chown -R ${omd_name}:${omd_name} ${wato_remote_directory}"
+	lxd_execute_command "${yaml_name_var}" "${container}" "mkdir -p ${wato_remote_directory}"
+	lxd_file_copy "${yaml_name_var}" "${container}" "${OMD_WATO_FILE}" "${wato_remote_directory}/.wato"
+	lxd_file_copy "${yaml_name_var}" "${container}" "${OMD_WATO_HOST_FILE}" "${wato_remote_directory}/hosts.mk"
+	lxd_execute_command "${yaml_name_var}" "${container}" "chown -R ${omd_name}:${omd_name} ${wato_remote_directory}"
 
 }
 
