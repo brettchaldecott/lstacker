@@ -89,3 +89,14 @@ function hosts_clear_hosts {
 	fi
 
 }
+
+
+# print the list of hosts
+function hosts_print_hosts {
+	echo_std_out "Hosts"
+	echo_std_out "###################"
+	echo "cat ${HOSTS_DIRECTORY}/hosts"
+	cat "${HOSTS_DIRECTORY}/hosts" >&3
+	echo_std_out "###################"
+}
+

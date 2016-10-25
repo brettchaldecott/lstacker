@@ -49,6 +49,9 @@ function stacker_build_stack {
 
 	# set the hosts information per network
 	echo_std_out "Finished building stack"
+
+	# print the list of hosts
+	hosts_print_hosts
 }
 
 
