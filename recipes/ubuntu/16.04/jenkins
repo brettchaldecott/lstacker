@@ -17,7 +17,7 @@
 # lstacker recipe file for jenkins. the reason for the no-check-certificates is because this
 # recipe was written behind a proxy that performed an intercept of http packets
 #
-wget --no-check-certificate -q -O - https://pkg.jenkins.io/debian/jenkins-ci.org.key | sudo apt-key add -
+sudo wget --no-check-certificate -q -O - https://pkg.jenkins.io/debian/jenkins-ci.org.key | sudo apt-key add -
 echo 'deb http://pkg.jenkins.io/debian-stable binary/' \| tee /etc/apt/sources.list.d/jenkins.list
 sudo apt update
 sudo apt install --allow-unauthenticated jenkins -y
